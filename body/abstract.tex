@@ -11,7 +11,7 @@ an explainable, language-independent analysis tool designed for cross-module arc
 The system utilizes a multi-stage pipeline that parses source code from various languages into
 a standardized \textbf{TOML-based Intermediate Representation (IR)} using Tree-sitter.
 This abstraction decouples the core analysis engine from language-specific syntax.
-\textbf{ArchDiver} employs \textbf{Graph Neural Networks (GNNs)} to model structural dependencies
+\textbf{ArchDiver} employs \textbf{GraphSAGE}, a graph neural network architecture, to model structural dependencies
 and identify problematic patterns, such as \textit{Cyclic Dependencies} and \textit{God Components}.
 
 To address the ``black-box'' nature of AI, a \textbf{Semantic Explanation} module leverages
