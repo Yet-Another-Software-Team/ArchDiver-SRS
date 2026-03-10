@@ -5,13 +5,13 @@
 As software systems grow in complexity, maintaining their architecture becomes increasingly challenging,
 often leading to ``architectural smells'' that decrease maintainability and scalability.
 Existing detection tools are frequently coupled to specific programming languages and often fail to
-identify smells that span across multiple system modules. This project presents \textbf{ArchDiver},
+identify smells that span across multiple system modules. This project presents \textbf{\usevar{\srsNickname}},
 an explainable, language-independent analysis tool designed for cross-module architectural smell detection.
 
 The system utilizes a multi-stage pipeline that parses source code from various languages into
 a standardized \textbf{TOML-based Intermediate Representation (IR)} using Tree-sitter.
 This abstraction decouples the core analysis engine from language-specific syntax.
-\textbf{ArchDiver} employs \textbf{GraphSAGE}, a graph neural network architecture, to model structural dependencies
+\textbf{\usevar{\srsNickname}} employs \textbf{GraphSAGE}, a graph neural network architecture, to model structural dependencies
 and identify problematic patterns, such as \textit{Cyclic Dependencies} and \textit{God Components}.
 
 To address the ``black-box'' nature of AI, a \textbf{Semantic Explanation} module leverages
