@@ -4,69 +4,49 @@
 \section{Background}
 \label{section:background}
 
-In the current software development landscape, the industry has seen a surge in tools designed to accelerate the development lifecycle.
-However, a significant disparity remains between the tools available for low-level code implementation and those focused on the high-level detection and explanation of architectural integrity.
+In the current software development landscape, the industry has seen a surge in tools designed to accelerate the development lifecycle. However, a significant disparity remains between the tools available for low-level code implementation and those focused on the high-level detection and explanation of architectural integrity.
 
-Currently, the primary solutions for architectural analysis fall into two categories: Large Language Models (LLMs) and specialized static analysis platforms such as SonarQube.
-While these tools provide baseline insights, they present several limitations as effective detection systems for modern development teams:
+Currently, the primary solutions for architectural analysis fall into two categories: Large Language Models (LLMs) and specialized static analysis platforms such as SonarQube. While these tools provide baseline insights, they present several limitations as effective detection systems for modern development teams:
 
 \begin{itemize}
-    \item \textbf{Operational Cost and Accessibility:} Enterprise-grade analysis tools often incur high licensing costs,
-    making them inaccessible for smaller teams or individual researchers. Furthermore, cloud-dependent LLMs require continuous financial investment
-    and a stable internet connection for consistent analysis.
+    \item \textbf{Operational Cost and Accessibility:} Enterprise-grade analysis tools often incur high licensing costs, making them inaccessible for smaller teams or individual researchers. Furthermore, cloud-dependent LLMs require continuous financial investment and a stable internet connection for consistent analysis.
 
-    \item \textbf{Metric-Centric Detection:} Existing tools are highly effective at generating quantitative metrics (e.g., cyclomatic complexity)
-    but often fail to detect \textit{structural} patterns. They typically report on localized code quality rather than identifying systemic architectural smells
-    that emerge from the interactions between components.
+    \item \textbf{Metric-Centric Detection:} Existing tools are highly effective at generating quantitative metrics (e.g., cyclomatic complexity) but often fail to detect \textit{structural} patterns. They typically report on localized code quality rather than identifying systemic architectural smells that emerge from the interactions between components.
 
-    \item \textbf{The Interpretive Burden:} Most detection tools shift the entire responsibility of interpretation back to the developer.
-    Without clear, natural language guidance, a developer must manually bridge the gap between a flagged numeric metric and the underlying architectural flaw it represents.
+    \item \textbf{The Interpretive Burden:} Most detection tools shift the entire responsibility of interpretation back to the developer. Without clear, natural language guidance, a developer must manually bridge the gap between a flagged numeric metric and the underlying architectural flaw it represents.
 
-    \item \textbf{LLM Hallucinations and Bias:} Generic LLM-based solutions are prone to hallucinatory outputs when analyzing complex codebases.
-    This can lead to the detection of non-existent issues or inappropriate suggestions that do not suit the specific structural constraints of the system.
+    \item \textbf{LLM Hallucinations and Bias:} Generic LLM-based solutions are prone to hallucinatory outputs when analyzing complex codebases. This can lead to the detection of non-existent issues or inappropriate suggestions that do not suit the specific structural constraints of the system.
 \end{itemize}
 
-Ultimately, traditional tools remain focused on "low-level" detection, such as syntax styling and local logic errors.
-This leaves a critical opening for a system like \textbf{\usevar{\srsNickname}} that graph-based architectural detection with local execution and high explainability.
+Ultimately, traditional tools remain focused on ``low-level'' detection, such as syntax styling and local logic errors. This leaves a critical opening for a system like \textbf{\usevar{\srsNickname}} that provides graph-based architectural detection with local execution and high explainability.
 
 \section{Problem Statement}
 \label{section:problem-statement}
 
-The modern systems are increasingly complex and are often developed at a rapid pace to meet market demands.
-This acceleration frequently comes at the cost of architectural integrity, leading to several critical challenges that \textbf{\usevar{\srsNickname}} aims to address:
+Modern systems are increasingly complex and are often developed at a rapid pace to meet market demands. This acceleration frequently comes at the cost of architectural integrity, leading to several critical challenges that \textbf{\usevar{\srsNickname}} aims to address:
+
+
 
 \subsection{Neglect of High-Level Architectural Analysis}
 \label{subsection:architectural-neglect}
-While modern development workflows are saturated with automated testing and continuous integration,
-there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software.
-Existing static analysis tools often focus on low-level code quality—such as naming conventions,
-code style, and local design patterns—leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools.
-Consequently, structural issues often remain undetected until they manifest as significant technical debt.
+While modern development workflows are saturated with automated testing and continuous integration, there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software. Existing static analysis tools often focus on low-level code quality—such as naming conventions, code style, and local design patterns—leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools. Consequently, structural issues often remain undetected until they manifest as significant technical debt.
 
 \subsection{Language Fragmentation and Tooling Silos}
 \label{subsection:language-fragmentation}
-The shift toward polyglot development and multi-language repositories has created a ``tooling silo'' effect.
-Most robust analysis solutions are language-specific, which creates significant friction when attempting to enforce architectural consistency across a diverse codebase.
-There is a distinct lack of cross-language frameworks capable of providing a unified architectural perspective regardless of the underlying programming languages used.
+The shift toward polyglot development and multi-language repositories has created a ``tooling silo'' effect. Most robust analysis solutions are language-specific, which creates significant friction when attempting to enforce architectural consistency across a diverse codebase. There is a distinct lack of cross-language frameworks capable of providing a unified architectural perspective regardless of the underlying programming languages used.
 
 \subsection{The Explainability Gap}
 \label{subsection:explainability-gap}
-Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation.
-Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect},
-a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements.
-While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values.
-\textbf{\usevar{\srsNickname}} aims to bridge this gap by providing clear,
-natural language explanations supported by quantitative metrics.
+Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation. Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect}, a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements. While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values. \textbf{\usevar{\srsNickname}} aims to bridge this gap by providing clear, natural language explanations supported by quantitative metrics.
 
 \section{Solution Overview}
 \label{section:solution-overview}
 
-\textbf{\usevar{\srsNickname}} aims to provide clear, natural language explanations for architectural smell detection.
-Using \textbf{Tree-sitter} to help parse and understand the structure of source code into a standardized \textbf{TOML-based Intermediate Representation (IR)},
-which is then used to detect architectural smells using \textbf{GraphSAGE}.
-The result of classification will then be used to generate natural language explanations for the detected smells backed by quantitative metrics.
+\textbf{\usevar{\srsNickname}} aims to provide clear, natural language explanations for architectural smell detection. The system utilizes \textbf{Tree-sitter} to parse the structure of source code into a standardized \textbf{TOML-based Intermediate Representation (IR)}, which is then used as the foundation for smell detection via \textbf{GraphSAGE}. The resulting classification is used to generate natural language explanations for the detected smells, backed by quantitative metrics.
 
-The \textbf{TOML-based IR} approach will ensure decoupling of analysis model and source code, allowing for easy adaptation to new languages and technologies.
+The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model from the source code, allowing for easy adaptation to new languages and technologies.
+
+
 
 \subsection{Features}
 \label{subsection:features}
@@ -82,32 +62,65 @@ The \textbf{TOML-based IR} approach will ensure decoupling of analysis model and
 \section{Target User}
 \label{section:target-user}
 
-<TIP:
-The target user in a software project refers to the specific
-group or demographic of individuals for whom the software is designed and
-developed. Identifying the target user is a crucial step in the software
-development process as it helps the development team tailor the software to
-meet the needs, preferences, and requirements of that particular user group.
-Understanding the characteristics, behaviors, and expectations of the target
-users is essential for creating a user-friendly and effective software solution.
+The design and functionality of \textbf{\usevar{\srsNickname}} are tailored towards the following individuals who are involved in the software architecture and design process:
 
-Here are some key aspects related to defining the target user in a software project:
+\begin{description}[style=multiline, leftmargin=3.5cm, font=\normalfont]
+    \item[\textbf{Software Architects:}] These users focus on the overall design and structure of software systems. They utilize the tool to detect architectural smells and understand system dependencies.
 
-Demographics: This includes factors such as age, gender,
-occupation, education level, and other demographic characteristics. Different
-age groups or professional backgrounds may have distinct preferences and
-requirements when it comes to software usability.
+    \item[\textbf{Lead Developers and Tech Leads:}] These users are responsible for code reviews and ensuring the quality of software systems. They utilize the tool to understand the architecture and dependencies of the system via analysis results and graph visualization.
 
-Skill Level: Consideration of the users' technical proficiency and
-familiarity with similar software or technology. The level of technical expertise
-can influence the complexity of the user interface, the need for tutorials or
-documentation, and other user support features.
+    \item[\textbf{Software Engineering Researchers and Students:}] These users focus on the study and advancement of software engineering principles. They utilize the tool to analyze and understand the architecture and dependencies of software systems.
+\end{description}
 
-Industry or Domain: For software solutions designed for specific
-industries or domains, understanding the unique challenges, workflows, and
-terminology within that industry is crucial. Tailoring the software to meet
-industry-specific needs is often necessary.
-/>
+\section{Document Conventions}
+\label{section:doc-conventions}
+
+This document follows the formatting standards outlined below to ensure clarity and consistency across all sections.
+
+\subsection{Typography}
+To help the reader easily understand the contents of this document, the following styles are used:
+\begin{description}[style=multiline, leftmargin=3cm, font=\normalfont]
+    \item[\textbf{Bold Text:}] Used for key terms and primary project components (e.g., \textbf{Code Parser}).
+    \item[\textit{Italic Text:}] Used for emphasis, document titles, or references to external papers and tools.
+    \item[\texttt{Monospaced Font:}] Used for specific code snippets, file paths, or data formats (e.g., \texttt{config.toml}).
+\end{description}
+
+\subsection{Requirement Priority}
+Every functional and non-functional requirement is assigned a priority level to guide the development phase:
+\begin{itemize}
+    \item \textbf{High (H):} Essential features; the system cannot function without these (e.g., source code parsing).
+    \item \textbf{Medium (M):} Important features that provide significant value but are not required for a basic prototype.
+    \item \textbf{Low (L):} ``Nice-to-have'' features and future enhancements (e.g., RESTful API parsing support).
+\end{itemize}
+
+\subsection{Requirement ID Convention}
+To ensure traceability throughout the project lifecycle, each requirement is assigned a unique identifier in the following format: \textbf{[Type]-[ID Number]}
+\begin{itemize}
+    \item \textbf{FR:} Functional Requirements (e.g., \texttt{FR-01})
+    \item \textbf{NFR:} Non-Functional Requirements (e.g., \texttt{NFR-01})
+    \item \textbf{UI:} User Interface Requirements (e.g., \texttt{UI-01})
+\end{itemize}
+
+\subsection{Requirement Statement}
+This document uses specific keywords to define the necessity of a requirement:
+\begin{description}[style=multiline, leftmargin=3cm, font=\normalfont]
+    \item[\textbf{Shall:}] Indicates a mandatory requirement that the system \textit{must} fulfill.
+    \item[\textbf{Should:}] Indicates a recommended but not mandatory requirement.
+    \item[\textbf{Will:}] Used for statements of fact or future intent, not for a specific requirement.
+\end{description}
+
+\section{Project Scope}
+\label{section:project-scope}
+
+The scope of \textbf{\usevar{\srsNickname}} is defined by the core features outlined in Section~\ref{subsection:features}. 
+
+\subsection{Out-of-Scope}
+The following features are strictly excluded from the initial version of the application:
+\begin{itemize}
+    \item \textbf{Refactoring Suggestions:} Automated code repair or refactoring suggestions are excluded due to the immature nature of research in this specific domain.
+    \item \textbf{Web-Based Interface:} The application is expected to utilize significant local resources (CPU/GPU) for graph analysis, making it unsuitable for a standard web-based deployment.
+    \item \textbf{Version Control Integration:} The system will analyze only the current version of the provided source code; comparison between different versions in a VCS is not supported.
+\end{itemize}
 
 \section{Terminology}
 \label{section:terminology}
