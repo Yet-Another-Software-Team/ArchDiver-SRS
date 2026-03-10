@@ -1,5 +1,21 @@
 \chapter*{Abstract}
 \label{chap:abstract}
-\addcontentsline{toc}{chapter}{\nameref{chap:abstract}}
+\addcontentsline{toc}{chapter}{Abstract} % Cleaned up for the TOC
 
-Put your abstract paragraph here.
+As software systems grow in complexity, maintaining their architecture becomes increasingly challenging,
+often leading to ``architectural smells'' that decrease maintainability and scalability.
+Existing detection tools are frequently coupled to specific programming languages and often fail to
+identify smells that span across multiple system modules. This project presents \textbf{ArchDiver},
+an explainable, language-independent analysis tool designed for cross-module architectural smell detection.
+
+The system utilizes a multi-stage pipeline that parses source code from various languages into
+a standardized \textbf{TOML-based Intermediate Representation (IR)} using Tree-sitter.
+This abstraction decouples the core analysis engine from language-specific syntax.
+\textbf{ArchDiver} employs \textbf{Graph Neural Networks (GNNs)} to model structural dependencies
+and identify problematic patterns, such as \textit{Cyclic Dependencies} and \textit{God Components}.
+
+To address the ``black-box'' nature of AI, a \textbf{Semantic Explanation} module leverages
+Large Language Models (LLMs) to provide human-readable, metric-backed justifications for each
+detected smell. To ensure accessibility for both developers and non-technical stakeholders,
+the application features a dual-interface approach (GUI and CLI), making it suitable for
+both interactive exploration and CI/CD automation.
