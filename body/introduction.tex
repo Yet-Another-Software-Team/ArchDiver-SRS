@@ -4,47 +4,85 @@
 \section{Background}
 \label{section:background}
 
-<TIP: 
-A background chapter in a book serves the purpose of providing essential context, information, or history that is relevant
-to the overall understanding of the book's subject matter. This chapter typically appears early in the book and aims to set the
-stage for the reader by offering background details that are crucial for comprehending the main narrative.
-/>
+In the current software development landscape, the industry has seen a surge in tools designed to accelerate the development lifecycle.
+However, a significant disparity remains between the tools available for low-level code implementation and those focused on the high-level detection and explanation of architectural integrity.
+
+Currently, the primary solutions for architectural analysis fall into two categories: Large Language Models (LLMs) and specialized static analysis platforms such as SonarQube.
+While these tools provide baseline insights, they present several limitations as effective detection systems for modern development teams:
+
+\begin{itemize}
+    \item \textbf{Operational Cost and Accessibility:} Enterprise-grade analysis tools often incur high licensing costs,
+    making them inaccessible for smaller teams or individual researchers. Furthermore, cloud-dependent LLMs require continuous financial investment
+    and a stable internet connection for consistent analysis.
+
+    \item \textbf{Metric-Centric Detection:} Existing tools are highly effective at generating quantitative metrics (e.g., cyclomatic complexity)
+    but often fail to detect \textit{structural} patterns. They typically report on localized code quality rather than identifying systemic architectural smells
+    that emerge from the interactions between components.
+
+    \item \textbf{The Interpretive Burden:} Most detection tools shift the entire responsibility of interpretation back to the developer.
+    Without clear, natural language guidance, a developer must manually bridge the gap between a flagged numeric metric and the underlying architectural flaw it represents.
+
+    \item \textbf{LLM Hallucinations and Bias:} Generic LLM-based solutions are prone to hallucinatory outputs when analyzing complex codebases.
+    This can lead to the detection of non-existent issues or inappropriate suggestions that do not suit the specific structural constraints of the system.
+\end{itemize}
+
+Ultimately, traditional tools remain focused on "low-level" detection, such as syntax styling and local logic errors.
+This leaves a critical opening for a system like \textbf{\usevar{\srsNickname}} that graph-based architectural detection with local execution and high explainability.
 
 \section{Problem Statement}
 \label{section:problem-statement}
 
-<TIP: 
-A problem statement refers to a clear central issue,
-challenge, or question that the project aims to address or explore. It is a
-declaration that highlights the specific problem the author intends to examine,
-discuss, or solve throughout the course of the project.
-/>
+The modern systems are increasingly complex and are often developed at a rapid pace to meet market demands.
+This acceleration frequently comes at the cost of architectural integrity, leading to several critical challenges that \textbf{\usevar{\srsNickname}} aims to address:
+
+\subsection{Neglect of High-Level Architectural Analysis}
+\label{subsection:architectural-neglect}
+While modern development workflows are saturated with automated testing and continuous integration,
+there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software.
+Existing static analysis tools often focus on low-level code quality—such as naming conventions,
+code style, and local design patterns—leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools.
+Consequently, structural issues often remain undetected until they manifest as significant technical debt.
+
+\subsection{Language Fragmentation and Tooling Silos}
+\label{subsection:language-fragmentation}
+The shift toward polyglot development and multi-language repositories has created a ``tooling silo'' effect.
+Most robust analysis solutions are language-specific, which creates significant friction when attempting to enforce architectural consistency across a diverse codebase.
+There is a distinct lack of cross-language frameworks capable of providing a unified architectural perspective regardless of the underlying programming languages used.
+
+\subsection{The Explainability Gap}
+\label{subsection:explainability-gap}
+Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation.
+Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect},
+a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements.
+While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values.
+\textbf{\usevar{\srsNickname}} aims to bridge this gap by providing clear,
+natural language explanations supported by quantitative metrics.
 
 \section{Solution Overview}
 \label{section:solution-overview}
 
-<TIP: 
-A software solution overview provides a high-level and
-concise description of a software product or system. It serves as an
-introduction to the software, offering a glimpse into its key features,
-functionalities, and the problems it aims to address. This overview is often
-presented in documentation, marketing materials, or other communication
-channels to give stakeholders, potential users, or decision-makers a quick
-understanding of what the software does and why it is valuable.
-/>
+\textbf{\usevar{\srsNickname}} aims to provide clear, natural language explanations for architectural smell detection.
+Using \textbf{Tree-sitter} to help parse and understand the structure of source code into a standardized \textbf{TOML-based Intermediate Representation (IR)},
+which is then used to detect architectural smells using \textbf{GraphSAGE}.
+The result of classification will then be used to generate natural language explanations for the detected smells backed by quantitative metrics.
+
+The \textbf{TOML-based IR} approach will ensure decoupling of analysis model and source code, allowing for easy adaptation to new languages and technologies.
 
 \subsection{Features}
 \label{subsection:features}
 
-\begin{enumerate}[leftmargin=80pt]
-    \item Feature Name: Short Description of Feature
-    \item Feature Name: Short Description of Feature
-\end{enumerate}
+\begin{description}[style=multiline, leftmargin=3.5cm, font=\normalfont]
+    \item[\textbf{Multi-Language Parsing}] Automated extraction of structural data from source code into a standardized \textbf{TOML-based Intermediate Representation (IR)}.
+    \item[\textbf{Graph-Based Modeling}] Transformation of software components and their dependencies into a directed graph format optimized for \textbf{Graph Neural Network (GNN)} analysis.
+    \item[\textbf{Architectural Smell Detection}] Intelligent identification of complex structural \textit{anti-patterns}, including Cyclic Dependencies, God Components, and Hub-like dependencies.
+    \item[\textbf{Semantic XAI Explanation}] Generation of natural language justifications using \textbf{Explainable AI (XAI)} to describe why specific structural patterns were flagged as architectural smells.
+    \item[\textbf{Interactive Visualization}] A dynamic graphical interface for exploring the system's architecture, allowing users to visually trace dependencies and identified smells.
+\end{description}
 
 \section{Target User}
 \label{section:target-user}
 
-<TIP: 
+<TIP:
 The target user in a software project refers to the specific
 group or demographic of individuals for whom the software is designed and
 developed. Identifying the target user is a crucial step in the software
@@ -74,7 +112,7 @@ industry-specific needs is often necessary.
 \section{Terminology}
 \label{section:terminology}
 
-<TIP: 
+<TIP:
 Terminology refers to the specific language, jargon, or
 specialized vocabulary used to describe concepts, ideas, or subjects within a
 particular field or domain. The use of terminology is often essential for clarity
