@@ -3,13 +3,34 @@
 
 \section{Stakeholder Analysis}
 \label{section:stakeholder-analysis}
-<TIP: List your stakeholders for your project here/>
 
-Stakeholders are individuals, groups, or entities that
-have an interest, concern, or stake in a particular project, decision,
-organization, or system. These are individuals or groups who can affect or be
-affected by the outcomes of your project.
-
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.5cm} | X | X |}
+        \hline
+        \textbf{Stakeholder} & \textbf{Action} & \textbf{Benefit} \\
+        \hline
+        \textbf{Software Architect}
+        & Performs high-level audits of system structure and evaluates architectural integrity.
+        & Gains automated detection of complex structural smells with metric-backed explanations. \\
+        \hline
+        \textbf{Lead Developer}
+        & Oversees code quality during development and manages technical debt.
+        & Identifies architectural erosion early and communicates structural risks to the team via natural language reports. \\
+        \hline
+        \textbf{Student \& Researcher}
+        & Analyzes existing open-source projects to learn architectural patterns.
+        & Accesses a language-independent tool to extract structural metrics and understand anti-patterns via XAI. \\
+        \hline
+        \textbf{DevOps Engineer}
+        & Integrates analysis tools into CI/CD pipelines.
+        & Automates the monitoring of structural metrics to prevent the introduction of new architectural smells. \\
+        \hline
+    \end{tabularx}
+    \caption{Stakeholder Actions and Benefits}
+    \label{tab:stakeholders}
+\end{table}
 
 \section{User Stories and Use Cases}
 \label{section:user-stories-use-cases}
@@ -25,6 +46,27 @@ requirements from the perspective of end users.
 Make sure to use the
 appropriate type of use case for each scenario (brief, casual, and fully-dressed
 use case). />
+\subsection{User Stories}
+\label{subsection:user-stories}
+
+\begin{description}[style=multiline, leftmargin=2cm, font=\normalfont]
+    \item[\textbf{US-01:}] As a \textbf{Software Architect}, I want to visualize the software architecture in a graph format so that I can identify systemic dependencies and potential structural issues at a glance.
+
+    \item[\textbf{US-02:}] As a \textbf{Software Architect}, I want to receive natural language explanations for flagged architectural smells so that I can understand the impact of a structural flaw without manually calculating complex metrics.
+
+    \item[\textbf{US-03:}] As a \textbf{Lead Developer}, I want to parse code written in different languages into a unified representation so that I can maintain consistent architectural standards across a multi-language codebase.
+
+    \item[\textbf{US-04:}] As a \textbf{DevOps Engineer}, I want to execute architectural analysis via a command-line interface so that I can automate structural integrity checks within our Continuous Integration (CI) pipeline.
+
+    \item[\textbf{US-05:}] As a \textbf{Researcher}, I want to export architectural metrics into a standardized format so that I can use the raw data for further quantitative analysis or custom reporting.
+
+    \item[\textbf{US-06:}] As a \textbf{Lead Developer}, I want to interact with the architectural graph (zooming/filtering) so that I can isolate specific components or clusters that are exhibiting highly coupled behaviors.
+\end{description}
+
+\subsection{Use Case}
+\label{subsection:use-case}
+
+
 
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
