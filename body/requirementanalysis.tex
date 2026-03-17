@@ -1,87 +1,149 @@
 \chapter{Requirement Analysis}
 \label{chap:requirement-analysis}
 
+This chapter describes stakeholders, user stories, primary use cases, and initial user interface considerations for \usevar{\srsNickName}. The sections below are formatted compactly: use case metadata appears as run-in entries to minimize vertical whitespace and improve readability.
+
 \section{Stakeholder Analysis}
 \label{section:stakeholder-analysis}
 
+\renewcommand{\arraystretch}{1.5}
 \begin{table}[htbp]
     \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.5cm} | X | X |}
+    \begin{tabularx}{\textwidth}{| p{3.5cm} | X | X |}
         \hline
-        \textbf{Stakeholder} & \textbf{Action} & \textbf{Benefit} \\
+        \textbf{Stakeholder} & \textbf{Responsibilities / Actions} & \textbf{Primary Benefit} \\
         \hline
-        \textbf{Software Architect}
+        Software Architect
         & Performs high-level audits of system structure and evaluates architectural integrity.
-        & Gains automated detection of complex structural smells with metric-backed explanations. \\
+        & Gains automated detection of structural smells with metric-backed explanations to support architectural decisions. \\
         \hline
-        \textbf{Lead Developer}
+        Lead Developer
         & Oversees code quality during development and manages technical debt.
-        & Identifies architectural erosion early and communicates structural risks to the team via natural language reports. \\
+        & Identifies architectural erosion early and receives actionable natural-language reports for remediation. \\
         \hline
-        \textbf{Student \& Researcher}
-        & Analyzes existing open-source projects to learn architectural patterns.
-        & Accesses a language-independent tool to extract structural metrics and understand anti-patterns via XAI. \\
+        Student \& Researcher
+        & Studies open-source projects and compares architectural patterns across languages.
+        & Accesses a language-agnostic analysis tool producing metrics and explainable outputs for empirical study. \\
         \hline
-        \textbf{DevOps Engineer}
-        & Integrates analysis tools into CI/CD pipelines.
-        & Automates the monitoring of structural metrics to prevent the introduction of new architectural smells. \\
+        DevOps Engineer
+        & Integrates analysis into CI/CD pipelines and automates quality gates.
+        & Automates monitoring of structural metrics to prevent introduction of architectural smells. \\
         \hline
     \end{tabularx}
-    \caption{Stakeholder Actions and Benefits}
+    \caption{Stakeholder responsibilities and benefits}
     \label{tab:stakeholders}
 \end{table}
 
 \section{User Stories and Use Cases}
 \label{section:user-stories-use-cases}
-<TIP: For each stakeholder, write user stories that capture what
-they need from the system: "As a [stakeholder], I want to [action] so that [benefit]."
-For your most important user stories, expand them into use cases.
-A use case is a detailed description of how a system
-interacts with an external entity (such as a user or another system) to
-accomplish a specific goal. Use cases provide a high-level view of the
-functionality of a system and help in capturing and documenting its
-requirements from the perspective of end users.
 
-Make sure to use the
-appropriate type of use case for each scenario (brief, casual, and fully-dressed
-use case). />
+This section lists the primary user stories followed by compact, run-in formatted use cases. Use cases present metadata in a single-line-per-field style to reduce large vertical gaps and improve scanability.
+
 \subsection{User Stories}
 \label{subsection:user-stories}
 
-\begin{description}[style=multiline, leftmargin=2cm, font=\normalfont]
-    \item[\textbf{US-01:}] As a \textbf{Software Architect}, I want to visualize the software architecture in a graph format so that I can identify systemic dependencies and potential structural issues at a glance.
-
-    \item[\textbf{US-02:}] As a \textbf{Software Architect}, I want to receive natural language explanations for flagged architectural smells so that I can understand the impact of a structural flaw without manually calculating complex metrics.
-
-    \item[\textbf{US-03:}] As a \textbf{Lead Developer}, I want to parse code written in different languages into a unified representation so that I can maintain consistent architectural standards across a multi-language codebase.
-
-    \item[\textbf{US-04:}] As a \textbf{DevOps Engineer}, I want to execute architectural analysis via a command-line interface so that I can automate structural integrity checks within our Continuous Integration (CI) pipeline.
-
-    \item[\textbf{US-05:}] As a \textbf{Researcher}, I want to export architectural metrics into a standardized format so that I can use the raw data for further quantitative analysis or custom reporting.
-
-    \item[\textbf{US-06:}] As a \textbf{Lead Developer}, I want to interact with the architectural graph (zooming/filtering) so that I can isolate specific components or clusters that are exhibiting highly coupled behaviors.
+\begin{description}
+    \item[US-01: Visualize Architecture:] As a \textbf{Software Architect}, I want to visualize the software architecture as an interactive graph so I can identify dependencies and structural issues quickly.
+    \item[US-02: Explain Smells:] As a \textbf{Software Architect}, I want natural language explanations for flagged architectural smells so I can understand their impact without manual metric computation.
+    \item[US-03: Multi-language Parsing:] As a \textbf{Lead Developer}, I want the system to parse code written in multiple languages into a unified intermediate representation so consistent architectural checks apply across the codebase.
+    \item[US-04: CLI Integration:] As a \textbf{DevOps Engineer}, I want to run architectural analysis via a CLI so I can integrate checks into CI pipelines.
+    \item[US-05: Exportable Metrics:] As a \textbf{Researcher}, I want to export architectural metrics in standard formats so I can perform further quantitative analysis.
+    \item[US-06: Interactive Graph Controls:] As a \textbf{Lead Developer}, I want to zoom, filter, and focus the architectural graph so I can isolate high-risk components or clusters.
 \end{description}
 
-\subsection{Use Case}
-\label{subsection:use-case}
+\subsection{Use Cases}
+\label{subsection:use-cases}
 
+The use cases below are presented with compact metadata rows (Primary Actor, Goal, Precondition) followed by a concise main success scenario and extensions.
 
+\subsubsection{UC-1: Initialize Project Analysis}
+\label{subsubsection:uc-1}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & User (Architect, Developer, Researcher) \\
+Goal: & Parse a target codebase and produce an initial analysis dashboard. \\
+Precondition: & None. \\
+\end{tabularx}
+
+Main success scenario:
+\begin{enumerate}
+    \item The user selects a project directory.
+    \item The system parses source files and extracts components and relationships into the TOML intermediate representation (IR).
+    \item Static metrics are computed, and the dependency graph is constructed.
+    \item The GraphSAGE model evaluates nodes for likely architectural smells.
+    \item The dashboard and graph canvas are populated with parsed modules, computed metrics and visual indicators of detected smells.
+\end{enumerate}
+
+\subsubsection{UC-2: Visualize Architectural Dependencies}
+\label{subsubsection:uc-2}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & User \\
+Goal: & Explore system structure to identify problematic components and dependency patterns. \\
+Precondition: & A parsed project with computed metrics and a dependency graph is available. \\
+\end{tabularx}
+
+Main success scenario:
+\begin{enumerate}
+    \item The user opens the Graph Visualization canvas.
+    \item The system renders a node-link diagram representing components and directed dependencies.
+    \item The user interacts (pan/zoom) and clicks a node to view detailed metrics in a sidebar (e.g., complexity, fan-out, fan-in).
+    \item The user applies filters (severity, language, package) and chooses layout options (force-directed, hierarchical).
+    \item The user identifies hotspots (e.g., high coupling or cyclic dependencies) and drills down using graph controls or clustering controls.
+\end{enumerate}
+
+Extensions:
+\begin{itemize}
+    \item For very large graphs, the system uses clustering or progressive rendering; clusters can be expanded on demand for detail.
+\end{itemize}
+
+\subsubsection{UC-3: Triage Smell with XAI Justification}
+\label{subsubsection:uc-3}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & User \\
+Goal: & Inspect an identified smell, obtain a human-readable justification (XAI), and navigate to the related graph location. \\
+Precondition: & The project has been analyzed and smells were detected. \\
+\end{tabularx}
+
+Main success scenario:
+\begin{enumerate}
+    \item The user opens the \textit{Detected Smells} view.
+    \item The system lists smells with severity, affected component and supporting metrics.
+    \item The user expands a smell card to see important metrics and an XAI-produced explanation including confidence indicators where available.
+    \item The user requests additional context (e.g., historical metrics or code excerpts) if provided by the system.
+    \item The user clicks a \textit{Related Component} link to focus the graph canvas on the implicated node and inspects its neighborhood.
+\end{enumerate}
+
+Extensions:
+\begin{itemize}
+    \item XAI/LLM fails or times out: display raw metrics with a standard, non-AI definition of the smell and a \textit{Retry Explanation} action.
+    \item Missing metrics (parser limitations): mark unavailable metrics and provide a best-effort explanation or suggestion to enable additional parsers.
+\end{itemize}
 
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
-<TIP: Include a UML Use Case Diagram that shows all actors and
-their relationships to the use cases you described.
-Also provide the written description for each use case. />
+
+Include a UML use case diagram showing primary actors (Software Architect, Lead Developer, DevOps Engineer, Researcher) and their relationships to the main use cases (Initialize Analysis, Visualize Dependencies, Triage Smells, Export Metrics, CI Integration). Replace the placeholder image in the final document with a rendered diagram (PlantUML, PDF, or image).
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{examples/use-case-diagram.png}
+    \caption{Use Case Diagram: actors and primary use cases (placeholder).}
+    \label{fig:use-case-diagram}
+\end{figure}
 
 \section{User Interface Design}
 \label{section:user-interface-design}
-<TIP: Put the initial design of your application here. You can
-showcase a detailed design of a specific page or a sitemap of your application.
-See an example below./>
 
-\begin{figure}[h]
+Primary screens (brief):
+\begin{itemize}
+    % TODO Find better work for Dashbaord, maybe "Getting Started", planned to use for express very brief details of current project and start new analysis.
+    \item \textbf{Dashboard:} Summary metrics (modules, smells by severity), recent analyses, and quick actions (scan, export).
+    \item \textbf{Graph Visualization:} Interactive node-link canvas with sidebar for details, filters, clustering, and layout controls.
+    \item \textbf{Detected Smells:} Card or list view with severity, supporting metrics and expandable XAI explanation panel.
+    \item \textbf{Analysis Settings:} Configure project-specific thresholds, and triage criteria to tailor the analysis.
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{examples/user-interface-design.png}
-    \caption{User Interface Design}
+    % \includegraphics[width=0.85\textwidth]{examples/user-interface-design.png}
+    \caption{UI mockup placeholder (Dashboard and Graph canvas).}
+    \label{fig:ui-mockup}
 \end{figure}
