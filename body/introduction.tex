@@ -119,19 +119,36 @@ The following features are strictly excluded from the initial version of the app
     \item \textbf{Refactoring Suggestions:} Automated code repair or refactoring suggestions are excluded due to the immature nature of research in this specific domain.
     \item \textbf{Web-Based Interface:} The application is expected to utilize significant local resources (CPU/GPU) for graph analysis, making it unsuitable for a standard web-based deployment.
     \item \textbf{Version Control Integration:} The system will analyze only the current version of the provided source code; comparison between different versions in a VCS is not supported.
+    \item \textbf{RESTful API Parsing:} The system will focus on deterministic connections between software components and will not attempt to parse or analyze RESTful API interactions, which are often dynamic and require runtime information.
+\end{itemize}
+
+\subsection{Assumptions and Dependencies}
+\label{subsection:assumptions}
+
+The core premise of \textbf{\usevar{\srsNickname}} language independence relies on the following technical assumptions and external dependencies:
+
+\begin{itemize}
+    \item \textbf{Tree-sitter Parser Availability:} It is assumed that Tree-sitter provides mature, accurate, and actively maintained grammar definitions for the target programming languages (e.g., Java, C\#, Go). The system's ability to abstract code into a unified Intermediate Representation (IR) is strictly dependent on the correctness of the Abstract Syntax Trees (ASTs) produced by these third-party parsers.
+    \item \textbf{Syntactic Completeness:} We assume that the syntactic structures extracted by Tree-sitter are sufficient to infer high-level architectural relationships (such as dependencies and coupling) without requiring deep semantic compilation or a complete language server protocol (LSP) environment.
 \end{itemize}
 
 \section{Terminology}
 \label{section:terminology}
 
-\begin{description}[style=multiline, leftmargin=3cm, font=\normalfont]
-    \item[\textbf{Architecture Smells:}] Architectural issues that are not immediately obvious but can lead to problems in the long run, such as technical debt or poor scalability.
-    \item[\textbf{Language Independence:}] The ability of the system to analyze source code written in multiple programming languages without requiring language-specific adjustments.
-    \item[\textbf{Intermediate Representation (IR):}] A structured representation of the source code that captures the program's structure and semantics, used by the system for analysis and visualization.
-    \item[\textbf{Large Language Model (LLM):}] A type of AI model that uses deep learning to understand and generate human-like text.
-    \item[\textbf{XAI:}] Explainable AI, a subset of AI that focuses on making AI models more transparent and interpretable to humans.
-    \item[\textbf{Continuous Integration (CI):}] A software development practice where code changes are automatically built, tested, and integrated into the main codebase.
-    \item[\textbf{GraphSAGE:}] A graph neural network architecture that learns node representations by aggregating information from their neighbors.
-    \item[\textbf{Tree Sitter:}] A parser generator that produces a parse tree for a given source code file, used by the system for source code parsing and analysis.
-    \item[\textbf{Abstract Syntax Tree (AST):}] A tree representation of the source code's structure, used by the system for analysis and visualization.
+\begin{description}[style=multiline, leftmargin=3cm, font=\normalfont, itemsep=1em]
+    \item[\textbf{Architectural Smells}] Architectural issues that are not immediately obvious but can lead to long-term problems such as increased technical debt, reduced maintainability, or poor scalability.
+
+    \item[\textbf{Language Independence}] The ability of the system to analyze source code written in multiple programming languages without requiring language-specific adjustments.
+
+    \item[\textbf{Intermediate Representation (IR)}] A language-agnostic, TOML-based format. The system translates language-specific ASTs into this unified IR to perform standardized architectural analysis and visualization.
+
+    \item[\textbf{Explainable AI (XAI)}] Techniques and methods that make AI models more transparent and interpretable to humans.
+
+    \item[\textbf{Continuous Integration (CI)}] A software development practice where code changes are automatically built, tested, and integrated into the main codebase.
+
+    \item[\textbf{GraphSAGE}] A graph neural network architecture that learns node representations by aggregating information from their neighborhood.
+
+    \item[\textbf{Tree-sitter}] A parser generator that builds a concrete syntax tree for a given source code file, serving as the first step in the system's code extraction pipeline.
+
+    \item[\textbf{Abstract Syntax Tree (AST)}] A tree representation of the source code's syntactic structure, generated via Tree-sitter, which strips away formatting details to focus on structural logic.
 \end{description}
