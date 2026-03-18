@@ -118,17 +118,58 @@ Extensions:
     \item Missing metrics (parser limitations): mark unavailable metrics and provide a best-effort explanation or suggestion to enable additional parsers.
 \end{itemize}
 
+\subsubsection{UC-4: Analyze Project with CLI}
+\label{subsubsection:uc-4}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & User \\
+Goal: & Execute the architectural analysis via command-line interface for automation or headless environments. \\
+Precondition: & Source code is available locally and the CLI tool is installed. \\
+\end{tabularx}
+
+Main success scenario:
+\begin{enumerate}
+    \item The user executes the analysis command in the terminal, specifying the target project directory and optional configuration flags.
+    \item The system parses the codebase, computes metrics, and runs the GraphSAGE model without launching the graphical interface.
+    \item The system generates a summary report of detected architectural smells in the terminal standard output.
+    \item The system optionally exports the detailed analysis results to a specified structured file format (e.g., JSON, CSV).
+\end{enumerate}
+
+Extensions:
+\begin{itemize}
+    \item Invalid directory or missing permissions: The system outputs a standard error message and terminates with a non-zero exit code.
+\end{itemize}
+
+\subsubsection{UC-5: Configure Analysis Settings}
+\label{subsubsection:uc-5}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & User \\
+Goal: & Adjust project-specific parameters, such as metric thresholds and XAI preferences, to tailor the analysis. \\
+Precondition: & None. \\
+\end{tabularx}
+
+Main success scenario:
+\begin{enumerate}
+    \item The user navigates to the Analysis Settings interface.
+    \item The user modifies structural thresholds (e.g., defining the maximum acceptable Cyclomatic Complexity or Fan-Out values).
+    \item The user toggles specific processing features, such as disabling LLM-based XAI generation to prioritize faster analysis times.
+    \item The user saves the configuration.
+    \item The system applies the updated parameters to subsequent parsing and smell detection operations.
+\end{enumerate}
+
+Extensions:
+\begin{itemize}
+    \item Invalid threshold inputs (e.g., negative complexity values): The system highlights the invalid field, prevents saving, and prompts the user for a valid input.
+\end{itemize}
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
 
-Include a UML use case diagram showing primary actors (Software Architect, Lead Developer, DevOps Engineer, Researcher) and their relationships to the main use cases (Initialize Analysis, Visualize Dependencies, Triage Smells, Export Metrics, CI Integration). Replace the placeholder image in the final document with a rendered diagram (PlantUML, PDF, or image).
-
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.8\textwidth]{examples/use-case-diagram.png}
-    \caption{Use Case Diagram: actors and primary use cases (placeholder).}
+    \includegraphics[width=0.8\textwidth]{diagrams/usecase.png}
+    \caption{Use Case Diagram: actors and primary use cases.}
     \label{fig:use-case-diagram}
 \end{figure}
+\FloatBarrier
 
 \section{User Interface Design}
 \label{section:user-interface-design}
