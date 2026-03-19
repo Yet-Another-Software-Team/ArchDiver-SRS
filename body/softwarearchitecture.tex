@@ -12,6 +12,28 @@ whichever best communicates your design.
 Accompany your diagram with a short paragraph explaining the key
 components and how they interact. />
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagrams/architecture.png}
+    \caption{High-level Software Architecture Diagram}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+\usevar{\srsNickName} utilize pipeline architecture for analysis workflow allowing its function to be change, add, and alter its analysis.
+The application lifecycle will be managed by separating the user interface, controller and pipeline control unit.
+The user interface will be responsible for receiving user input and displaying results,
+while the controller will manage the flow of data between the user interface and the pipeline control unit.
+The pipeline control unit will orchestrate the execution of various analysis components, allowing for flexibility and modularity in the system design.
+
+Key Software Architectural Components:
+
+\begin{itemize}
+    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an intuitive interface for users to interact with the application.
+    \item \textbf{Controller:} Manages the flow of data between the user interface and the pipeline control unit, ensuring that user inputs are correctly processed and results are displayed appropriately.
+    \item \textbf{PipelineControlUnit:} Invokes and manage execution of pipeline nodes, allowing for dynamic configuration of analysis workflows.
+    \item \textbf{ContextStorage:} Responsible for safely storing and managing state information and intermediate data (such as the TOML IR and Graph structures) throughout the analysis process, ensuring that relevant data is accessible to the Controller without interrupting the pipeline.
+\end{itemize}
+
 \section{Software Design}
 \label{section:software-design}
 <TIP: Describe the runtime behavior of your system.
