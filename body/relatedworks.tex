@@ -13,15 +13,46 @@
 
 To evaluate the current state of software code smell detection tools, a competitive analysis was conducted using the
 Asana Competitor Analysis Framework. The analysis focused on tools specializing at different code granularity levels and
-their multi-language capabilities. 
+their multi-language capabilities. We compare each solution by the following features:
+\textbf{1.} Analysis granularity level
+\textbf{2.} Analysis capabilities
+\textbf{3.} Supported languages
+\textbf{4.} Report format
 
-We compare each solution by the following features
-- Metric report capability
-- Source code smell detection
-- Security vulerability detection
-- Architectural smell detection
-- Natural language explanations
-- Number of of programming languages supported
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{| p{3.5cm} | X | X | X | X |}
+        \hline
+        \textbf{Features} & \textbf{Designnite} & \textbf{Sonarqube} & \textbf{Go architect} & \textbf{ArchDiver} \\
+        \hline
+        Level of Interest 
+        & Code + Architecture Level 
+        & Code-level Design 
+        & Architecture Level
+        & Architecture Level \\
+        \hline
+        Analysis 
+        & Architecture Smells, Architecture Metrics 
+        & Security / Vulnerability smells, Code Smells
+        & Architecture Metrics  
+        & Architectural Smell, Architecture Metrics \\
+        \hline
+        Language 
+        & Java, C\#, Python 
+        & Supports 35 Programming Languages
+        & Golang 
+        & Language Independent Analysis \\
+        \hline
+        Explanation 
+        & Architectural Metrics Report, Detected Smells
+        & Security Metrics, Code quality Metrics
+        & Architectural Metrics Report
+        & Architectural Metrics, Detected Smells, Natural Language Explanation\\
+        \hline
+    \end{tabularx}
+    \caption{Comparison of software analysis tools by feature set}
+    \label{tab:tool_comparison}
+\end{table}
 
 From the comparison table, we can see that exsisting competitors...
 
