@@ -6,24 +6,112 @@
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{examples/asana-competitive-landscape.jpg}
-    \caption{Competitive Landscape by Asana}
+    \includegraphics[width=0.8\textwidth]{chapter-2/competitor-landscape-analysis.png}
+    \caption{Competitive landscape positioning based on software granularity specialization and
+    multi-language support.}
 \end{figure}
 
-<TIP: 
-Refer to an article "How to create a competitive analysis (with
-examples)" by Asana. You can use the Competitor Landscape or
-Competitor Analysis Framework for your project.
-/>
+To evaluate the current state of software code smell detection tools, a competitive analysis was conducted using the
+Asana Competitor Analysis Framework. The analysis focused on tools specializing at different code granularity levels and
+their multi-language capabilities. We compare each solution by the following features:
+\textbf{1.} Analysis granularity level
+\textbf{2.} Analysis capabilities
+\textbf{3.} Supported languages
+\textbf{4.} Report format
+\\
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.5} 
+    \begin{tabularx}{\textwidth}{p{2.5cm} XXXX}
+        \hline
+        \textbf{Features} & \textbf{Designnite} & \textbf{SonarQube} & \textbf{Go Architect} & \textbf{ArchDiver} \\
+        \hline
+        Granularity & Code \newline + Architecture & Code Design & Architecture & Architecture \\
+        
+        Analysis & Architecture Smells \newline + Metrics & Security, Code Smells & Architecture Metrics & Architecture Smells \newline + Metrics \\
+        
+        Language & Java, C\#, Python & 35+ Languages & Golang & Language \newline Independent \\
+        
+        Report & Metric based Report, \newline Architecture Smells & Security \& Quality & Metrics Report & Architecture Smells \newline + Metrics, NL Explanation \\
+        \hline
+    \end{tabularx}
+    \caption{Comparison of software analysis tools by feature set}
+    \label{tab:tool_comparison}
+\end{table}
+
+
+\textbf{ArchDiver} differentiates itself from existing solutions by allowing architectural analysis
+independent of programming language used. By integrating Natural Language explanations, it aids in 
+interpreting architectural smells and understanding the justification behind the detection.
+\\
+
+The proposed system aims to capture the market of multi-language software system analysis
+eliminating the need for tool aggregation and lowering the knowledge gap for interpreting software architecture.
 
 \section{Literature Review}
 \label{section:literature-review}
 
-<TIP: Review academic papers or technical reports
-that are relevant to your project.
-For each source, briefly summarize its key findings and
-then explain how it informs your own design or implementation decisions.
-The goal is not just to describe what others have done,
-but to build a justification for your own technical choices.
-For example, if you chose a particular algorithm or architecture,
-cite the work that supports that decision. />
+To build this project, we utilize previous academic works and technologies in three fields.
+Architectural smell definitions, Graph Neural Networks (GNN), and deep learning interpretation.
+\\
+
+\textbf{2.2.1 Architectural smell definition and evaluation metrics}
+\\
+
+Tushar et al.[1] defines architecture smells as "indicators of poor quality"
+manifesting within source code at an architectural level of granularity 
+which can be detected based on architectural metrics. The metrics are:
+\begin{itemize}
+  \item Afferent coupling
+  \item Efferent coupling
+  \item Lines of Code
+  \item Lack of Cohesion in Methods
+  \item Lack of Component Cohesion
+  \item Cyclomatic Complexity
+  \item Unique Local identifiers
+  \item Accessed Components
+\end{itemize}
+
+We design our model to detect architectural smells based on the definitions in this literature.
+Using the metrics provided by Tushar et al.,
+we design a metric parser to extract metrics from TreeSitter's
+representation for graph attribute construction. This allows our GraphSAGE model
+to classify architectural smells and learn metrics which have a relation with different
+architectural smells.
+\\
+
+\textbf{2.2.2 GNN construction and graph modeling}
+\\
+
+Recent literature has explored the concept of utilizing GNNs for the classification of code smells
+due to code's graph like connections between components, classes, and methods.
+Hanyu et al.[2] devised an architecture for detecting code smells using 3 GNN models, GCN, GAT, and
+GraphSAGE for detecting and refactoring large class, Long method, and Feature envy code smells, 
+using a combination of a method level Program Dependency Graph (PDG) and a class level Direct Heterogenous Graph (DHG).
+From the literature, inductive models such as GraphSAGE can learn and classify code smells more accurately 
+than transductive models such as Graph Convolutional Network (GCN).
+
+Minnan et al.[3] utilized fuzzy pooling and focal loss to improve GCN accuracy on classifying architectural smells.\\
+
+We utilize the method as detailed by Hanyu et al.[2] 
+for graph construction to construct a suitable graph representation of the code base
+for a classification task using a GraphSAGE model utilizing focal loss as the classification metric.
+\\
+
+\textbf{2.2.3 Architecture smell datasets}
+\\
+
+For GraphSAGE model training, this project utilizes the Q-Scored dataset by Tushar et al.[4]. 
+Compared to manual Github repository mining, the Q-Scored dataset has pre-annotated architectural smells
+and is cited as a standard for architectural smell detection experiments.
+\\
+
+\textbf{2.2.4 GraphSAGE Explanation}
+\\
+
+While Deep learning models can preform classification tasks they are not easilly explained unlike rule-based models.
+Due to the need for understanding architecture, we utilize GNNExplainer by Rex et al.[5] to visualize and interpret
+the connection between architectural metrics and code relationships within the modelled graph
+\\
