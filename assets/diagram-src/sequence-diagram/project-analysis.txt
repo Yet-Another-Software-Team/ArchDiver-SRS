@@ -1,0 +1,58 @@
+title Project Analysis Sequence Diagram
+actor User
+participant "UserInterface" as UI
+participant "Controller" as C
+participant "PipelineControlUnit" as PCU
+participant "CodeParser" as CP
+participant "GraphConstructor" as GC
+participant "SmellAnalyzer" as SA
+participant "GNNExplainer" as GE
+participant "ContextStorage" as CS
+
+User->UI: Select project directory
+activate UI
+UI->C: initializeAnalysis(path)
+activate C
+C->PCU: startPipeline(path)
+activate PCU
+
+PCU->CP: parseSource(path)
+activate CP
+note right of CP: Extracts AST via Tree-sitter
+CP-->PCU: TOML Intermediate Representation (IR)
+deactivate CP
+PCU->CS: store(IR)
+
+PCU->GC: buildGraph(IR)
+activate GC
+GC-->PCU: Dependency Graph & Metrics
+deactivate GC
+PCU->CS: store(GraphData)
+
+PCU->SA: detectSmells(GraphData)
+activate SA
+note right of SA: Evaluates nodes using GraphSAGE
+SA-->PCU: Detected Architectural Smells
+deactivate SA
+PCU->CS: store(Smells)
+
+PCU->GE: ExplainGraph(Smells, GraphData)
+activate GE
+note right of GE: Extracts GNN's smell explanation from GraphSAGE
+GE->PCU: GNN Explaination
+deactivate GE
+
+PCU->CS: store(GnnExplaination)
+
+PCU-->C: Pipeline execution complete
+deactivate PCU
+
+C->CS: fetchResults()
+activate CS
+CS-->C: Dashboard Data
+deactivate CS
+
+C-->UI: Analysis results & Dashboard state
+deactivate C
+UI-->User: Display dashboard with metrics & smells
+deactivate UI
