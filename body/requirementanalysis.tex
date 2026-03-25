@@ -43,12 +43,12 @@ This section lists the primary user stories followed by compact, run-in formatte
 \label{subsection:user-stories}
 
 \begin{description}
-    \item[US-01: Visualize Architecture:] As a \textbf{Software Architect}, I want to visualize the software architecture as an interactive graph so I can identify dependencies and structural issues quickly.
-    \item[US-02: Explain Smells:] As a \textbf{Software Architect}, I want natural language explanations for flagged architectural smells so I can understand their impact without manual metric computation.
+    \item[US-01: Visualize Architecture:] As a \textbf{Software Architect}, I want to view the software architecture as a graph representation to identify dependencies and structural issues for further inspection.
+    \item[US-02: Explain Smells:] As a \textbf{Software Architect}, I want concise natural-language explanations for flagged architectural smells so I can assess their impact without manual metric aggregation.
     \item[US-03: Multi-language Parsing:] As a \textbf{Lead Developer}, I want the system to parse code written in multiple languages into a unified intermediate representation so consistent architectural checks apply across the codebase.
     \item[US-04: CLI Integration:] As a \textbf{DevOps Engineer}, I want to run architectural analysis via a CLI so I can integrate checks into CI pipelines.
     \item[US-05: Exportable Metrics:] As a \textbf{Researcher}, I want to export architectural metrics in standard formats so I can perform further quantitative analysis.
-    \item[US-06: Interactive Graph Controls:] As a \textbf{Lead Developer}, I want to zoom, filter, and focus the architectural graph so I can isolate high-risk components or clusters.
+    \item[US-06: Graph Controls:] As a \textbf{Lead Developer}, I want zoom, filter, and focus controls for the architectural graph so I can examine specific components or clusters.
 \end{description}
 
 \subsection{Use Cases}
@@ -99,7 +99,7 @@ Extensions:
 \label{subsubsection:uc-3}
 \begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
 Primary Actor: & User \\
-Goal: & Inspect an identified smell, obtain a human-readable justification (XAI), and navigate to the related graph location. \\
+Goal: & Inspect an identified smell, obtain a textual justification (XAI), and navigate to the related graph location. \\
 Precondition: & The project has been analyzed and smells were detected. \\
 \end{tabularx}
 
@@ -176,10 +176,11 @@ Extensions:
 
 Primary screens (brief):
 \begin{itemize}
-    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and start new analysis workflow.
-    \item \textbf{Graph Visualization:} Interactive node-link canvas with sidebar for details, filters, clustering, and layout controls.
-    \item \textbf{Detected Smells:} Card or list view with severity, supporting metrics and expandable XAI explanation panel.
+    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and starting new analyses.
+    \item \textbf{Graph Visualization:} Node-link canvas with sidebar for details, filters, clustering, and layout controls.
+    \item \textbf{Detected Smells:} Card or list view with severity, supporting metrics and an expandable explanation panel.
     \item \textbf{Analysis Settings:} Configure project-specific thresholds, and triage criteria to tailor the analysis.
+\end{itemize}
 
 \begin{figure}[htbp]
     \centering
@@ -201,4 +202,3 @@ Primary screens (brief):
     \caption{UI mockup for report page (Smell Explanation).}
     \label{fig:ui-mockup}
 \end{figure}
-

@@ -1,0 +1,50 @@
+title 2. Graph Interaction and XAI sequence diagram
+actor User
+participant "UserInterface" as UI
+participant "Controller" as C
+participant "PipelineControlUnit" as PCU
+participant "ContextStorage" as CS
+participant "SmellExplainer" as SE
+
+User->UI: Open Graph Visualization
+activate UI
+UI->C: fetchGraphData()
+activate C
+C->CS: get(GraphData, Metrics)
+activate CS
+CS-->C: Graph data & Metrics
+deactivate CS
+C-->UI: graph payload
+deactivate C
+UI-->User: Render interactive node-link diagram
+
+User->UI: Select specific smell
+UI->C: requestExplanation(nodeId, smellId)
+activate C
+
+C->PCU: startExplanationPipeline(nodeId, smellId)
+activate PCU
+PCU->CS: getContext(nodeId)
+activate CS
+CS-->PCU: Component code & metrics context
+deactivate CS
+
+PCU->SE: generateJustification(weights, metrics)
+activate SE
+note right of SE: Queries LLM to generate NL explanation
+SE-->PCU: Natural language XAI explanation
+deactivate SE
+
+PCU->CS: store(Explanation)
+PCU-->C: Explanation ready
+deactivate PCU
+
+C->CS: getExplanation(smellId)
+activate CS
+CS-->C: Explanation text
+deactivate CS
+
+C-->UI: Explanation text & metrics
+deactivate C
+UI-->User: Display expanded smell card with justification
+deactivate UI

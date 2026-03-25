@@ -1,0 +1,35 @@
+title Analyze Project with CLI Sequence Diagram
+actor DevOps
+participant "CLI (UserInterface)" as CLI
+participant "Controller" as C
+participant "PipelineControlUnit" as PCU
+participant "ContextStorage" as CS
+participant "FileSystem" as FS
+
+DevOps->CLI: Run `archdiver analyze <dir> --export=json`
+activate CLI
+CLI->C: executeHeadlessAnalysis(dir, config)
+activate C
+
+C->PCU: runAnalysisPipeline(dir)
+activate PCU
+note over PCU: Orchestrates CodeParser,\nGraphConstructor, and SmellAnalyzer
+PCU->CS: storeAll(IR, GraphData, Smells)
+PCU-->C: Pipeline Complete
+deactivate PCU
+
+C->CS: fetchFinalResults()
+activate CS
+CS-->C: Metrics & Smells payload
+deactivate CS
+
+C-->CLI: Raw result data
+deactivate C
+
+CLI->FS: write(report.json)
+activate FS
+FS-->CLI: File saved confirmation
+deactivate FS
+
+CLI-->DevOps: Print summary report to standard output\n(Exit code 0 on success)
+deactivate CLI

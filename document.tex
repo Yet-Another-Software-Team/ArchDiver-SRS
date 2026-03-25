@@ -15,6 +15,8 @@
 \usepackage{indentfirst}  % Indent first paragraph after headers
 \usepackage{enumitem}  % Better control of itemize, enumerate
 \usepackage{placeins}  % Ensure floats do not move past FloatBarriers / sections
+\usepackage{pdflscape}
+\usepackage{adjustbox}  % For resizing images in landscape pages
 
 \graphicspath{{./assets}}
 
@@ -26,13 +28,14 @@
 % Edit the variables for the paper here!
 \def \srsTitle{ArchDiver: Software architecture smell analysis and explanation using GraphSAGE and LLM}
 \def \srsNickName{ArchDiver}
+\def \srsNickname{\srsNickName} % for backward compatibility and ease of use
 \def \srsAuthorOne{Sirapob Phasut}
 \def \srsAuthorTwo{Khunakorn Pattayakorn}
-\def \srsAuthorThree{~}
+\def \srsAuthorThree{}
 \def \srsAcademicYear{2568}
 
 \def \srsAdvisorName{Asst. Prof. Paruj Ratanaworabhan}
-\def \srsCoAdvisorName{~}
+\def \srsCoAdvisorName{}
 \def \srsHoDName{Assoc. Prof. Punpiti Piamsa-nga}
 %% -----------------------------------
 

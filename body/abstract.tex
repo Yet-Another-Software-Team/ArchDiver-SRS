@@ -5,17 +5,12 @@
 As software systems grow in complexity, maintaining their architecture becomes increasingly challenging,
 often leading to ``architectural smells'' that decrease maintainability and scalability.
 Existing detection tools are frequently coupled to specific programming languages and often fail to
-identify smells that span across multiple system modules. This project presents \textbf{\usevar{\srsNickname}},
-an explainable, language-independent analysis tool designed for cross-module architectural smell detection.
+identify smells that span across multiple system modules. This project introduces \textbf{\usevar{\srsNickName}}, a language-independent analysis tool intended to support cross-module architectural smell detection.
 
 The system utilizes a multi-stage pipeline that parses source code from various languages into
 a standardized \textbf{TOML-based Intermediate Representation (IR)} using Tree-sitter.
 This abstraction decouples the core analysis engine from language-specific syntax.
-\textbf{\usevar{\srsNickname}} employs \textbf{GraphSAGE}, a graph neural network architecture, to model structural dependencies
+\textbf{\usevar{\srsNickName}} employs \textbf{GraphSAGE}, a graph neural network architecture, to model structural dependencies
 and identify problematic patterns, such as \textit{Cyclic Dependencies} and \textit{God Components}.
 
-To address the ``black-box'' nature of AI, a \textbf{Semantic Explanation} module leverages
-Large Language Models (LLMs) to provide human-readable, metric-backed justifications for each
-detected smell. To ensure accessibility for both developers and non-technical stakeholders,
-the application features a dual-interface approach (GUI and CLI), making it suitable for
-both interactive exploration and CI/CD automation.
+To address the ``black-box'' nature of AI, a \textbf{Semantic Explanation} module uses Large Language Models (LLMs) to produce concise, metric-backed textual justifications for detected smells. The application provides both GUI and CLI interfaces to support on-demand investigation and CI/CD automation.
