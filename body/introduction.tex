@@ -18,8 +18,6 @@ Currently, the primary solutions for architectural analysis fall into two catego
     \item \textbf{LLM Hallucinations and Bias:} Generic LLM-based solutions are prone to hallucinatory outputs when analyzing complex codebases. This can lead to the detection of non-existent issues or inappropriate suggestions that do not suit the specific structural constraints of the system.
 \end{itemize}
 
-Ultimately, traditional tools remain focused on ``low-level'' detection, such as syntax styling and local logic errors. This leaves a critical opening for a system like \textbf{\usevar{\srsNickname}} that provides graph-based architectural detection with local execution and high explainability.
-
 \section{Problem Statement}
 \label{section:problem-statement}
 
@@ -29,7 +27,7 @@ Modern systems are increasingly complex and are often developed at a rapid pace 
 
 \subsection{Neglect of High-Level Architectural Analysis}
 \label{subsection:architectural-neglect}
-While modern development workflows are saturated with automated testing and continuous integration, there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software. Existing static analysis tools often focus on low-level code quality—such as naming conventions, code style, and local design patterns—leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools. Consequently, structural issues often remain undetected until they manifest as significant technical debt.
+While modern development workflows are saturated with automated testing and continuous integration, there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software. Existing static analysis tools often focus on low-level code quality—such as naming conventions, code style, and local design patterns. Leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools. Consequently, structural issues often remain undetected until they manifest as significant technical debt.
 
 \subsection{Language Fragmentation and Tooling Silos}
 \label{subsection:language-fragmentation}
@@ -37,12 +35,12 @@ The shift toward polyglot development and multi-language repositories has create
 
 \subsection{The Explainability Gap}
 \label{subsection:explainability-gap}
-Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation. Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect}, a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements. While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values. \textbf{\usevar{\srsNickname}} aims to bridge this gap by providing clear, natural language explanations supported by quantitative metrics.
+Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation. Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect}, a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements. While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values. \textbf{\usevar{\srsNickName}} aims to bridge this gap by providing clear, natural language explanations supported by quantitative metrics.
 
 \section{Solution Overview}
 \label{section:solution-overview}
 
-\textbf{\usevar{\srsNickname}} aims to provide clear, natural language explanations for architectural smell detection. The system utilizes \textbf{Tree-sitter} to parse the structure of source code into a standardized \textbf{TOML-based Intermediate Representation (IR)}, which is then used as the foundation for smell detection via \textbf{GraphSAGE}. The resulting classification is used to generate natural language explanations for the detected smells, backed by quantitative metrics.
+\textbf{\usevar{\srsNickName}} aims to provide clear, natural language explanations for architectural smell detection. The system utilizes \textbf{Tree-sitter} to parse the structure of source code into a standardized \textbf{TOML-based Intermediate Representation (IR)}, which is then used as the foundation for smell detection via \textbf{GraphSAGE}. The resulting classification is used to generate natural language explanations for the detected smells, backed by quantitative metrics.
 
 The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model from the source code, allowing for easy adaptation to new languages and technologies.
 
@@ -62,7 +60,7 @@ The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model
 \section{Target User}
 \label{section:target-user}
 
-The design and functionality of \textbf{\usevar{\srsNickname}} are tailored towards the following individuals who are involved in the software architecture and design process:
+The design and functionality of \textbf{\usevar{\srsNickName}} are tailored towards the following individuals who are involved in the software architecture and design process:
 
 \begin{description}[style=multiline, leftmargin=3.5cm, font=\normalfont]
     \item[\textbf{Software Architects:}] These users focus on the overall design and structure of software systems. They utilize the tool to detect architectural smells and understand system dependencies.
@@ -111,7 +109,7 @@ This document uses specific keywords to define the necessity of a requirement:
 \section{Project Scope}
 \label{section:project-scope}
 
-The scope of \textbf{\usevar{\srsNickname}} is defined by the core features outlined in Section~\ref{subsection:features}.
+The scope of \textbf{\usevar{\srsNickName}} is defined by the core features outlined in Section~\ref{subsection:features}.
 
 \subsection{Out-of-Scope}
 The following features are strictly excluded from the initial version of the application:
@@ -125,7 +123,7 @@ The following features are strictly excluded from the initial version of the app
 \subsection{Assumptions and Dependencies}
 \label{subsection:assumptions}
 
-The core premise of \textbf{\usevar{\srsNickname}} language independence relies on the following technical assumptions and external dependencies:
+The core premise of \textbf{\usevar{\srsNickName}} language independence relies on the following technical assumptions and external dependencies:
 
 \begin{itemize}
     \item \textbf{Tree-sitter Parser Availability:} It is assumed that Tree-sitter provides mature, accurate, and actively maintained grammar definitions for the target programming languages (e.g., Java, C\#, Go). The system's ability to abstract code into a unified Intermediate Representation (IR) is strictly dependent on the correctness of the Abstract Syntax Trees (ASTs) produced by these third-party parsers.
