@@ -11,28 +11,60 @@
     \label{fig:use-case-diagram}
 \end{figure}
 
-\usevar{\srsNickName} utilize pipeline architecture for analysis workflow allowing its function to be change, add, and alter its analysis.
-The application lifecycle will be managed by separating the user interface, controller and pipeline control unit.
-The user interface will be responsible for receiving user input and displaying results,
-while the controller will manage the flow of data between the user interface and the pipeline control unit.
-The pipeline control unit will orchestrate the execution of various analysis components, allowing for flexibility and modularity in the system design.
+\usevar{\srsNickName} utilizes a pipeline architecture for the analysis workflow. The application lifecycle is organized by separating the user interface, the controller, and the pipeline control unit.
+The user interface is responsible for receiving user input and displaying results,
+the controller coordinates data flow between the UI and the pipeline control unit,
+and the pipeline control unit orchestrates execution of analysis components to provide modularity and configurability in the system design.
 
 Key Software Architectural Components:
 
 \begin{itemize}
-    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an intuitive interface for users to interact with the application.
-    \item \textbf{Controller:} Manages the flow of data between the user interface and the pipeline control unit, ensuring that user inputs are correctly processed and results are displayed appropriately.
-    \item \textbf{PipelineControlUnit:} Invokes and manage execution of pipeline nodes, allowing for dynamic configuration of analysis workflows.
-    \item \textbf{ContextStorage:} Responsible for safely storing and managing state information and intermediate data (such as the TOML IR and Graph structures) throughout the analysis process, ensuring that relevant data is accessible to the Controller without interrupting the pipeline.
+    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application.
+    \item \textbf{Controller:} Coordinates data flow between the user interface and the pipeline control unit, ensuring inputs are processed and results are exposed.
+    \item \textbf{PipelineControlUnit:} Invokes and manages execution of pipeline nodes, supporting configurable analysis workflows.
+    \item \textbf{ContextStorage:} Stores and manages state and intermediate data (such as the TOML IR and graph structures) so that relevant data is available to the controller and pipeline components.
 \end{itemize}
 
 \section{Software Design}
 \label{section:software-design}
-<TIP: Describe the runtime behavior of your system.
-Include a Sequence Diagram for your most important use cases.
-Focus on scenarios with non-trivial interactions between components.
-If your project involves a novel algorithm,
-describe it here and explain why you designed it this way. />
+
+The runtime behavior of \usevar{\srsNickName} is characterized by a decoupled, state-managed pipeline that separates heavy computational workloads from user interactions. To illustrate the non-trivial interactions between our system's components, we outline the sequence of operations for our primary use cases below.
+
+\subsection{Analysis Pipeline Execution}
+The core functionality revolves around the automated extraction and analysis of architectural data. Whether initiated via the graphical interface or a headless CLI environment, the \textbf{Controller} delegates orchestration to the \textbf{PipelineControlUnit} (PCU).
+
+The PCU sequentially invokes the \textbf{CodeParser} to generate the TOML Intermediate Representation (IR), the \textbf{GraphConstructor} to build the dependency graph, and the \textbf{SmellAnalyzer} (incorporating the GraphSAGE model) to classify architectural smells. Crucially, intermediate states are continuously offloaded to the \textbf{ContextStorage}. This design allows the pipeline components to operate as stateless workers and ensures that the UI or CLI can asynchronously fetch the final results without blocking the main execution thread.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagrams/sequence-diagram/project-analysis.png}
+    \caption{Sequence Diagram: Initializing Project Analysis}
+    \label{fig:seq-analysis}
+\end{figure}
+
+\subsection{Interactive Visualization and XAI Explanation}
+For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the UI, the \textbf{Controller} requests a textual explanation.
+
+Instead of pre-computing explanations for every node, the PCU retrieves the contextual sub-graph from \textbf{ContextStorage} and invokes the \textbf{GNNExplainer} to extract feature importance and subgraph weights on demand. These weights, together with raw static metrics, are passed to the \textbf{SmellExplainer}, which constructs a prompt for an LLM to generate a textual justification. The lazy-evaluation approach ensures costly LLM inferences are executed only on demand, reducing resource usage.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagrams/sequence-diagram/visualize-xai.png}
+    \caption{Sequence Diagram: Graph Interaction and XAI Explanation}
+    \label{fig:seq-visualize}
+\end{figure}
+
+\subsection{Headless Execution and CI/CD Integration}
+To support automated workflows such as Continuous Integration (CI), \usevar{\srsNickName} provides a Command-Line Interface (CLI). When initiated via the CLI, the \textbf{Controller} triggers a headless analysis pipeline.
+
+The \textbf{PipelineControlUnit} orchestrates the parsing, graph construction, and smell detection phases exactly as it does in the interactive mode, storing all intermediate and final data within the \textbf{ContextStorage}. However, instead of rendering a graphical dashboard, the Controller fetches the final metrics and detected architectural smells from storage and exports them directly to a structured file format (e.g., JSON or CSV) via the \textbf{FileSystem}. This decoupled design allows the tool to run efficiently in background environments, enabling automated quality gates that can fail a build if critical architectural smells are detected, entirely without the overhead of a graphical user interface.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagrams/sequence-diagram/cli.png}
+    \caption{Sequence Diagram: Analyze Project with CLI (Headless)}
+    \label{fig:seq-ci}
+\end{figure}
 
 \section{AI and Data Design}
 \label{section:ai-data-design}
