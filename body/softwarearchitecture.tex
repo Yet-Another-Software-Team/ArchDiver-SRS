@@ -11,19 +11,18 @@
     \label{fig:use-case-diagram}
 \end{figure}
 
-\usevar{\srsNickName} utilize pipeline architecture for analysis workflow allowing its function to be change, add, and alter its analysis.
-The application lifecycle will be managed by separating the user interface, controller and pipeline control unit.
-The user interface will be responsible for receiving user input and displaying results,
-while the controller will manage the flow of data between the user interface and the pipeline control unit.
-The pipeline control unit will orchestrate the execution of various analysis components, allowing for flexibility and modularity in the system design.
+\usevar{\srsNickName} utilizes a pipeline architecture for the analysis workflow. The application lifecycle is organized by separating the user interface, the controller, and the pipeline control unit.
+The user interface is responsible for receiving user input and displaying results,
+the controller coordinates data flow between the UI and the pipeline control unit,
+and the pipeline control unit orchestrates execution of analysis components to provide modularity and configurability in the system design.
 
 Key Software Architectural Components:
 
 \begin{itemize}
-    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an intuitive interface for users to interact with the application.
-    \item \textbf{Controller:} Manages the flow of data between the user interface and the pipeline control unit, ensuring that user inputs are correctly processed and results are displayed appropriately.
-    \item \textbf{PipelineControlUnit:} Invokes and manage execution of pipeline nodes, allowing for dynamic configuration of analysis workflows.
-    \item \textbf{ContextStorage:} Responsible for safely storing and managing state information and intermediate data (such as the TOML IR and Graph structures) throughout the analysis process, ensuring that relevant data is accessible to the Controller without interrupting the pipeline.
+    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application.
+    \item \textbf{Controller:} Coordinates data flow between the user interface and the pipeline control unit, ensuring inputs are processed and results are exposed.
+    \item \textbf{PipelineControlUnit:} Invokes and manages execution of pipeline nodes, supporting configurable analysis workflows.
+    \item \textbf{ContextStorage:} Stores and manages state and intermediate data (such as the TOML IR and graph structures) so that relevant data is available to the controller and pipeline components.
 \end{itemize}
 
 \section{Software Design}
@@ -44,9 +43,9 @@ The PCU sequentially invokes the \textbf{CodeParser} to generate the TOML Interm
 \end{figure}
 
 \subsection{Interactive Visualization and XAI Explanation}
-For the interactive visualization, the system must seamlessly bridge the visual graph data with deep learning explainability. When a user selects a specific architectural smell from the UI, the \textbf{Controller} requests an explanation.
+For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the UI, the \textbf{Controller} requests a textual explanation.
 
-Instead of pre-computing expensive explanations for every node, the PCU retrieves the contextual sub-graph from \textbf{ContextStorage} and invokes the \textbf{GNNExplainer} to extract feature importance and subgraph weights on-demand. These weights, along with raw static metrics, are then passed to the \textbf{SmellExplainer}, which constructs a prompt for the Large Language Model (LLM) to generate a human-readable justification. This lazy-evaluation design ensures that heavy LLM inferences are only executed when explicitly requested, optimizing system resource utilization.
+Instead of pre-computing explanations for every node, the PCU retrieves the contextual sub-graph from \textbf{ContextStorage} and invokes the \textbf{GNNExplainer} to extract feature importance and subgraph weights on demand. These weights, together with raw static metrics, are passed to the \textbf{SmellExplainer}, which constructs a prompt for an LLM to generate a textual justification. The lazy-evaluation approach ensures costly LLM inferences are executed only on demand, reducing resource usage.
 
 \begin{figure}[htbp]
     \centering

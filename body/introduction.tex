@@ -21,13 +21,13 @@ Currently, the primary solutions for architectural analysis fall into two catego
 \section{Problem Statement}
 \label{section:problem-statement}
 
-Modern systems are increasingly complex and are often developed at a rapid pace to meet market demands. This acceleration frequently comes at the cost of architectural integrity, leading to several critical challenges that \textbf{\usevar{\srsNickname}} aims to address:
+Modern systems are increasingly complex and are often developed at a rapid pace to meet market demands. This acceleration frequently comes at the cost of architectural integrity, leading to several critical challenges that \textbf{\usevar{\srsNickName}} aims to address:
 
 
 
 \subsection{Neglect of High-Level Architectural Analysis}
 \label{subsection:architectural-neglect}
-While modern development workflows are saturated with automated testing and continuous integration, there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software. Existing static analysis tools often focus on low-level code quality—such as naming conventions, code style, and local design patterns. Leaving high-level architectural analysis to manual inspection or fragmented, ad-hoc tools. Consequently, structural issues often remain undetected until they manifest as significant technical debt.
+While modern development workflows are saturated with automated testing and continuous integration, there is a notable lack of tooling dedicated specifically to the \textbf{architectural aspect} of software. Existing static analysis tools often focus on low-level code quality such as naming conventions, code style, and local design patterns, and therefore leave high-level architectural analysis to manual inspection or fragmented, ad-hoc tools. As a result, structural issues frequently remain undetected until they manifest as significant technical debt.
 
 \subsection{Language Fragmentation and Tooling Silos}
 \label{subsection:language-fragmentation}
@@ -52,9 +52,9 @@ The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model
 \begin{description}[style=multiline, leftmargin=3.5cm, font=\normalfont]
     \item[\textbf{Multi-Language Parsing}] Automated extraction of structural data from source code into a standardized \textbf{TOML-based Intermediate Representation (IR)}.
     \item[\textbf{Graph-Based Modeling}] Transformation of software components and their dependencies into a directed graph format optimized for \textbf{Graph Neural Network (GNN)} analysis.
-    \item[\textbf{Architectural Smell Detection}] Intelligent identification of complex structural \textit{anti-patterns}, including Cyclic Dependencies, God Components, and Hub-like dependencies.
-    \item[\textbf{Semantic XAI Explanation}] Generation of natural language justifications using \textbf{Explainable AI (XAI)} to describe why specific structural patterns were flagged as architectural smells.
-    \item[\textbf{Interactive Visualization}] A dynamic graphical interface for exploring the system's architecture, allowing users to visually trace dependencies and identified smells.
+    \item[\textbf{Architectural Smell Detection}] Algorithmic identification of structural \textit{anti-patterns}, including Cyclic Dependencies, God Components, and Hub-like dependencies.
+    \item[\textbf{XAI Explanations}] Generation of concise, metric-backed natural-language explanations using \textbf{Explainable AI (XAI)} to justify why particular structures were classified as smells.
+    \item[\textbf{Visualization}] A graphical interface for inspecting the system architecture, showing dependencies and flagged smells for manual review.
 \end{description}
 
 \section{Target User}
