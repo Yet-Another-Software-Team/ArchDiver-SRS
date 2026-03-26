@@ -49,6 +49,7 @@ This section lists the primary user stories followed by compact, run-in formatte
     \item[US-04: CLI Integration:] As a \textbf{DevOps Engineer}, I want to run architectural analysis via a CLI so I can integrate checks into CI pipelines.
     \item[US-05: Exportable Metrics:] As a \textbf{Researcher}, I want to export architectural metrics in standard formats so I can perform further quantitative analysis.
     \item[US-06: Graph Controls:] As a \textbf{Lead Developer}, I want zoom, filter, and focus controls for the architectural graph so I can examine specific components or clusters.
+    \item[US-07: MCP Support:] As a \textbf{Lead Developer}, I want MCP support so that I can let the Agentic AI suggest and refactor the codebase to address detected smells.
 \end{description}
 
 \subsection{Use Cases}
@@ -174,9 +175,12 @@ Extensions:
 \section{User Interface Design}
 \label{section:user-interface-design}
 
+This section provides Graphical User Interface (GUI) mockups for the primary screens of \usevar{\srsNickName}.
+The design emphasizes clarity, ease of navigation, and effective presentation of complex architectural information.
+
 Primary screens (brief):
 \begin{itemize}
-    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and starting new analyses.
+    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and starting new analyzes.
     \item \textbf{Graph Visualization:} Node-link canvas with sidebar for details, filters, clustering, and layout controls.
     \item \textbf{Detected Smells:} Card or list view with severity, supporting metrics and an expandable explanation panel.
     \item \textbf{Analysis Settings:} Configure project-specific thresholds, and triage criteria to tailor the analysis.
