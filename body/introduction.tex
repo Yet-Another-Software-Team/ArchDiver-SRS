@@ -55,7 +55,7 @@ The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model
     \item[\textbf{Architectural Smell Detection}] Algorithmic identification of structural \textit{anti-patterns}, including Cyclic Dependencies, God Components, and Hub-like dependencies.
     \item[\textbf{XAI Explanations}] Generation of concise, metric-backed natural-language explanations using \textbf{Explainable AI (XAI)} to justify why particular structures were classified as smells.
     \item[\textbf{Visualization}] A graphical interface for inspecting the system architecture, showing dependencies and flagged smells for manual review.
-    \item[\textbf{MCP Server}] A background service that allows Agentic AI systems to query the architecture and receive explanations, enabling integration into agentic AI workflows.
+    \item[\textbf{MCP Server}] A Model Context Protocol server that allows agentic AI tools to interface with the analysis results. It provides a standardized way for AI agents to query detected smells, retrieve architectural justifications (XAI), and understand the codebase structure without direct manual extraction.
 \end{description}
 
 \section{Target User}

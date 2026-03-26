@@ -19,7 +19,7 @@ and the pipeline control unit orchestrates execution of analysis components to p
 Key Software Architectural Components:
 
 \begin{itemize}
-    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application.
+    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application. This includes graphical visualization via desktop application, headless execution via CLI, and MCP server.
     \item \textbf{Controller:} Coordinates data flow between the user interface and the pipeline control unit, ensuring inputs are processed and results are exposed.
     \item \textbf{PipelineControlUnit:} Invokes and manages execution of pipeline nodes, supporting configurable analysis workflows.
     \item \textbf{ContextStorage:} Stores and manages state and intermediate data (such as the TOML IR and graph structures) so that relevant data is available to the controller and pipeline components.
@@ -43,7 +43,7 @@ The PCU sequentially invokes the \textbf{CodeParser} to generate the TOML Interm
 \end{figure}
 
 \subsection{Interactive Visualization and XAI Explanation}
-For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the UI, the \textbf{Controller} requests a textual explanation.
+For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the GUI, the \textbf{Controller} requests a textual explanation.
 
 Instead of pre-computing explanations for every node, the PCU retrieves the contextual sub-graph from \textbf{ContextStorage} and invokes the \textbf{GNNExplainer} to extract feature importance and subgraph weights on demand. These weights, together with raw static metrics, are passed to the \textbf{SmellExplainer}, which constructs a prompt for an LLM to generate a textual justification. The lazy-evaluation approach ensures costly LLM inferences are executed only on demand, reducing resource usage.
 
@@ -90,7 +90,7 @@ with the parsed code.
 For the classification model, we use a GraphSAGE model for architectural smell classification.
 From exsisting literature, it has been shown that inductive models outperform transitive models
 in code classification tasks {insert ref here}. While GATs can be modelled as an inductive algorithm,
-they are prone to overfitting on graph attributes causing poor performance on unseen data. Additionally, 
+they are prone to overfitting on graph attributes causing poor performance on unseen data. Additionally,
 when comparing GraphSAGE to GCN and GAT models, GraphSAGE is significantly faster on graphs with large edges and
 nodes. It is up to 7 and 44 times faster than GAT and GCN respectively {insert ref here}.
 \\

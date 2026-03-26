@@ -49,7 +49,10 @@ This section lists the primary user stories followed by compact, run-in formatte
     \item[US-04: CLI Integration:] As a \textbf{DevOps Engineer}, I want to run architectural analysis via a CLI so I can integrate checks into CI pipelines.
     \item[US-05: Exportable Metrics:] As a \textbf{Researcher}, I want to export architectural metrics in standard formats so I can perform further quantitative analysis.
     \item[US-06: Graph Controls:] As a \textbf{Lead Developer}, I want zoom, filter, and focus controls for the architectural graph so I can examine specific components or clusters.
-    \item[US-07: MCP Support:] As a \textbf{Lead Developer}, I want MCP support so that I can let the Agentic AI suggest and refactor the codebase to address detected smells.
+    \item \textbf{US-07: MCP Support for AI Integration} \\
+    As a \textit{Lead Developer}, \\
+    I want to expose \usevar{\srsNickName}'s analysis through an MCP server, \\
+    so that my AI-assisted development tools can automatically incorporate architectural smell data and justifications into their context for better-informed code reviews.
 \end{description}
 
 \subsection{Use Cases}
@@ -164,6 +167,16 @@ Extensions:
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
 
+\subsection{UC-6: Expose Analysis via MCP Server}
+\label{subsubsection:uc-6}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & Agentic AI (via MCP).
+Goal: & Programmatically retrieve smell data and justifications.
+Success Scenario: & The agent queries the MCP server; the server fetches results from storage and returns a structured JSON payload containing the smells and their XAI justifications.
+\end{tabularx}
+
+\subsection{Use Case Diagram}
+\label{subsection:use-case-diagram}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{diagrams/usecase.png}
