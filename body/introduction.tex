@@ -55,6 +55,7 @@ The \textbf{TOML-based IR} approach ensures the decoupling of the analysis model
     \item[\textbf{Architectural Smell Detection}] Algorithmic identification of structural \textit{anti-patterns}, including Cyclic Dependencies, God Components, and Hub-like dependencies.
     \item[\textbf{XAI Explanations}] Generation of concise, metric-backed natural-language explanations using \textbf{Explainable AI (XAI)} to justify why particular structures were classified as smells.
     \item[\textbf{Visualization}] A graphical interface for inspecting the system architecture, showing dependencies and flagged smells for manual review.
+    \item[\textbf{MCP Server}] A background service that allows Agentic AI systems to query the architecture and receive explanations, enabling integration into agentic AI workflows.
 \end{description}
 
 \section{Target User}
@@ -114,7 +115,6 @@ The scope of \textbf{\usevar{\srsNickName}} is defined by the core features outl
 \subsection{Out-of-Scope}
 The following features are strictly excluded from the initial version of the application:
 \begin{itemize}
-    \item \textbf{Refactoring Suggestions:} Automated code repair or refactoring suggestions are excluded due to the immature nature of research in this specific domain.
     \item \textbf{Web-Based Interface:} The application is expected to utilize significant local resources (CPU/GPU) for graph analysis, making it unsuitable for a standard web-based deployment.
     \item \textbf{Version Control Integration:} The system will analyze only the current version of the provided source code; comparison between different versions in a VCS is not supported.
     \item \textbf{RESTful API Parsing:} The system will focus on deterministic connections between software components and will not attempt to parse or analyze RESTful API interactions, which are often dynamic and require runtime information.
@@ -149,4 +149,6 @@ The core premise of \textbf{\usevar{\srsNickName}} language independence relies 
     \item[\textbf{Tree-sitter}] A parser generator that builds a concrete syntax tree for a given source code file, serving as the first step in the system's code extraction pipeline.
 
     \item[\textbf{Abstract Syntax Tree (AST)}] A tree representation of the source code's syntactic structure, generated via Tree-sitter, which strips away formatting details to focus on structural logic.
+
+    \item[\textbf{MCP Server}] The program that expose specific capabilities to AI applications through standardized protocol interfaces.
 \end{description}
