@@ -60,7 +60,7 @@ Architectural smell definitions, Graph Neural Networks (GNN), and deep learning 
 \textbf{2.2.1 Architectural smell definition and evaluation metrics}
 \\
 
-Tushar et al.[1] defines architecture smells as "indicators of poor quality"
+Tushar et al. \cite{Sharma2020} defines architecture smells as "indicators of poor quality"
 manifesting within source code at an architectural level of granularity 
 which can be detected based on architectural metrics. The metrics are:
 \begin{itemize}
@@ -75,8 +75,8 @@ which can be detected based on architectural metrics. The metrics are:
 \end{itemize}
 
 We design our model to detect architectural smells based on the definitions in this literature.
-Using the metrics provided by Tushar et al.,
-we design a metric parser to extract metrics from TreeSitter's
+Using the metrics provided by Tushar et al. \cite{Sharma2020}.
+We design a metric parser to extract metrics from TreeSitter's
 representation for graph attribute construction. This allows our GraphSAGE model
 to classify architectural smells and learn metrics which have a relation with different
 architectural smells.
@@ -87,31 +87,32 @@ architectural smells.
 
 Recent literature has explored the concept of utilizing GNNs for the classification of code smells
 due to code's graph like connections between components, classes, and methods.
-Hanyu et al.[2] devised an architecture for detecting code smells using 3 GNN models, GCN, GAT, and
-GraphSAGE for detecting and refactoring large class, Long method, and Feature envy code smells, 
-using a combination of a method level Program Dependency Graph (PDG) and a class level Direct Heterogenous Graph (DHG).
+HanYu et al.\cite{HanYu2024} devised an architecture for detecting code smells using 3 GNN models, GCN, GAT, and
+GraphSAGE for detecting and refactoring large class, Long method, and Feature envy code smells. 
+Using a combination of a method level Program Dependency Graph (PDG) and a class level Direct Heterogeneous Graph (DHG).
 From the literature, inductive models such as GraphSAGE can learn and classify code smells more accurately 
 than transductive models such as Graph Convolutional Network (GCN).
 
-Minnan et al.[3] utilized fuzzy pooling and focal loss to improve GCN accuracy on classifying architectural smells.\\
+Minnan et al. \cite{ZHANG2025103284} utilized fuzzy pooling and focal loss to improve GCN accuracy on classifying architectural smells.
+\\
 
-We utilize the method as detailed by Hanyu et al.[2] 
-for graph construction to construct a suitable graph representation of the code base
+We utilize the method as detailed by HanYu et al. \cite{HanYu2024}
+for graph construction to construct a suitable graph representation of the codebase
 for a classification task using a GraphSAGE model utilizing focal loss as the classification metric.
 \\
 
 \textbf{2.2.3 Architecture smell datasets}
 \\
 
-For GraphSAGE model training, this project utilizes the Q-Scored dataset by Tushar et al.[4]. 
-Compared to manual Github repository mining, the Q-Scored dataset has pre-annotated architectural smells
+For GraphSAGE model training, this project utilizes the Q-Scored dataset by Tushar et al. \cite{Tushar2021}. 
+Compared to manual GitHub repository mining, the Q-Scored dataset has pre-annotated architectural smells
 and is cited as a standard for architectural smell detection experiments.
 \\
 
 \textbf{2.2.4 GraphSAGE Explanation}
 \\
 
-While Deep learning models can preform classification tasks they are not easilly explained unlike rule-based models.
-Due to the need for understanding architecture, we utilize GNNExplainer by Rex et al.[5] to visualize and interpret
-the connection between architectural metrics and code relationships within the modelled graph
+While Deep learning models can preform classification tasks they are not easily explained unlike rule-based models.
+Due to the need for understanding architecture, we utilize GNNExplainer by Rex et al. \cite{REX2019} to visualize and interpret
+the connection between architectural metrics and code relationships within the modeled graph
 \\
