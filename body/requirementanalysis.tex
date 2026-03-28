@@ -1,7 +1,7 @@
 \chapter{Requirement Analysis}
 \label{chap:requirement-analysis}
 
-This chapter describes stakeholders, user stories, primary use cases, and initial user interface considerations for \usevar{\srsNickName}. The sections below are formatted compactly: use case metadata appears as run-in entries to minimize vertical whitespace and improve readability.
+This chapter describes stakeholders, user stories, primary use cases, and initial user interface considerations for \usevar{\srsNickName}.
 
 \section{Stakeholder Analysis}
 \label{section:stakeholder-analysis}
@@ -33,6 +33,7 @@ This chapter describes stakeholders, user stories, primary use cases, and initia
     \caption{Stakeholder responsibilities and benefits}
     \label{tab:stakeholders}
 \end{table}
+\FloatBarrier
 
 \section{User Stories and Use Cases}
 \label{section:user-stories-use-cases}
@@ -49,6 +50,10 @@ This section lists the primary user stories followed by compact, run-in formatte
     \item[US-04: CLI Integration:] As a \textbf{DevOps Engineer}, I want to run architectural analysis via a CLI so I can integrate checks into CI pipelines.
     \item[US-05: Exportable Metrics:] As a \textbf{Researcher}, I want to export architectural metrics in standard formats so I can perform further quantitative analysis.
     \item[US-06: Graph Controls:] As a \textbf{Lead Developer}, I want zoom, filter, and focus controls for the architectural graph so I can examine specific components or clusters.
+    \item \textbf{US-07: MCP Support for AI Integration} \\
+    As a \textbf{Lead Developer}, \\
+    I want to exposes \usevar{\srsNickName}'s analysis through an MCP server, \\
+    so that my AI-assisted development tools can automatically incorporate architectural smell data and justifications into their context for better-informed code reviews.
 \end{description}
 
 \subsection{Use Cases}
@@ -160,9 +165,20 @@ Extensions:
 \begin{itemize}
     \item Invalid threshold inputs (e.g., negative complexity values): The system highlights the invalid field, prevents saving, and prompts the user for a valid input.
 \end{itemize}
+
+\subsubsection{UC-6: Expose Analysis via MCP Server}
+\label{subsubsection:uc-6}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+Primary Actor: & Agentic AI (via MCP). \\
+Goal: & Programmatically retrieve smell data and justifications. \\
+Success Scenario: & The agent queries the MCP server; the server fetches results from storage and returns a structured JSON payload containing the smells and their XAI justifications. \\
+\end{tabularx}
+
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
 
+\subsection{Use Case Diagram}
+\label{subsection:use-case-diagram}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{diagrams/usecase.png}
@@ -174,9 +190,12 @@ Extensions:
 \section{User Interface Design}
 \label{section:user-interface-design}
 
+This section provides Graphical User Interface (GUI) mockups for the primary screens of \usevar{\srsNickName}.
+The design emphasizes clarity, ease of navigation, and effective presentation of complex architectural information.
+
 Primary screens (brief):
 \begin{itemize}
-    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and starting new analyses.
+    \item \textbf{Workspace Home:} Summary metrics (modules, smells by severity), and starting new analyzes.
     \item \textbf{Graph Visualization:} Node-link canvas with sidebar for details, filters, clustering, and layout controls.
     \item \textbf{Detected Smells:} Card or list view with severity, supporting metrics and an expandable explanation panel.
     \item \textbf{Analysis Settings:} Configure project-specific thresholds, and triage criteria to tailor the analysis.
@@ -186,19 +205,19 @@ Primary screens (brief):
     \centering
     \includegraphics[width=0.85\textwidth]{chapter-3/workspace-page.png}
     \caption{UI mockup for workspace page (Dashboard and overview graph).}
-    \label{fig:ui-mockup}
+    \label{fig:ui-mockup-workspace}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{chapter-3/visualization-page.png}
     \caption{UI mockup for visualization page (Smell visualization and metric exploration).}
-    \label{fig:ui-mockup}
+    \label{fig:ui-mockup-visualization}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{chapter-3/report-page.png}
     \caption{UI mockup for report page (Smell Explanation).}
-    \label{fig:ui-mockup}
+    \label{fig:ui-mockup-report}
 \end{figure}

@@ -4,8 +4,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>128</x>
-      <y>432</y>
+      <x>256</x>
+      <y>272</y>
       <w>48</w>
       <h>88</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>320</x>
-      <y>264</y>
+      <x>448</x>
+      <y>104</y>
       <w>152</w>
       <h>88</h>
     </coordinates>
@@ -27,8 +27,8 @@ Analysis</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>320</x>
-      <y>360</y>
+      <x>448</x>
+      <y>200</y>
       <w>152</w>
       <h>64</h>
     </coordinates>
@@ -40,8 +40,8 @@ Graph</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>320</x>
-      <y>432</y>
+      <x>448</x>
+      <y>272</y>
       <w>152</w>
       <h>64</h>
     </coordinates>
@@ -53,10 +53,10 @@ Justification</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>264</x>
-      <y>248</y>
+      <x>392</x>
+      <y>88</y>
       <w>272</w>
-      <h>440</h>
+      <h>536</h>
     </coordinates>
     <panel_attributes>ArchDiver
 halign=left</panel_attributes>
@@ -65,8 +65,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>304</y>
+      <x>296</x>
+      <y>144</y>
       <w>168</w>
       <h>176</h>
     </coordinates>
@@ -76,8 +76,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>384</y>
+      <x>296</x>
+      <y>224</y>
       <w>168</w>
       <h>96</h>
     </coordinates>
@@ -87,8 +87,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>456</y>
+      <x>296</x>
+      <y>296</y>
       <w>168</w>
       <h>24</h>
     </coordinates>
@@ -98,8 +98,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>320</x>
-      <y>512</y>
+      <x>448</x>
+      <y>352</y>
       <w>152</w>
       <h>64</h>
     </coordinates>
@@ -110,8 +110,8 @@ CLI</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>456</y>
+      <x>296</x>
+      <y>296</y>
       <w>168</w>
       <h>104</h>
     </coordinates>
@@ -121,8 +121,8 @@ CLI</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>320</x>
-      <y>592</y>
+      <x>448</x>
+      <y>440</y>
       <w>152</w>
       <h>64</h>
     </coordinates>
@@ -133,12 +133,35 @@ Settings</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>456</y>
+      <x>296</x>
+      <y>296</y>
       <w>168</w>
-      <h>184</h>
+      <h>192</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;190.0;210.0</additional_attributes>
+    <additional_attributes>10.0;10.0;190.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>440</x>
+      <y>520</y>
+      <w>152</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>MCP server
+Integration</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>296</x>
+      <y>296</y>
+      <w>160</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;320.0</additional_attributes>
   </element>
 </diagram>

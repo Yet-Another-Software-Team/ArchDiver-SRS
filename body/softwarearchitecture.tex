@@ -8,7 +8,7 @@
     \centering
     \includegraphics[width=0.8\textwidth]{diagrams/architecture.png}
     \caption{High-level Software Architecture Diagram}
-    \label{fig:use-case-diagram}
+    \label{fig:architecture-diagram}
 \end{figure}
 
 \usevar{\srsNickName} utilizes a pipeline architecture for the analysis workflow. The application lifecycle is organized by separating the user interface, the controller, and the pipeline control unit.
@@ -19,7 +19,7 @@ and the pipeline control unit orchestrates execution of analysis components to p
 Key Software Architectural Components:
 
 \begin{itemize}
-    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application.
+    \item \textbf{UserInterface:} Responsible for receiving user input and displaying results, providing an interface for users to operate the application. This includes graphical visualization via desktop application, headless execution via CLI, and MCP server.
     \item \textbf{Controller:} Coordinates data flow between the user interface and the pipeline control unit, ensuring inputs are processed and results are exposed.
     \item \textbf{PipelineControlUnit:} Invokes and manages execution of pipeline nodes, supporting configurable analysis workflows.
     \item \textbf{ContextStorage:} Stores and manages state and intermediate data (such as the TOML IR and graph structures) so that relevant data is available to the controller and pipeline components.
@@ -43,7 +43,7 @@ The PCU sequentially invokes the \textbf{CodeParser} to generate the TOML Interm
 \end{figure}
 
 \subsection{Interactive Visualization and XAI Explanation}
-For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the UI, the \textbf{Controller} requests a textual explanation.
+For the interactive visualization, the system links the visual graph data with explainability outputs. When a user selects a specific architectural smell from the GUI, the \textbf{Controller} requests a textual explanation.
 
 Instead of pre-computing explanations for every node, the PCU retrieves the contextual sub-graph from \textbf{ContextStorage} and invokes the \textbf{GNNExplainer} to extract feature importance and subgraph weights on demand. These weights, together with raw static metrics, are passed to the \textbf{SmellExplainer}, which constructs a prompt for an LLM to generate a textual justification. The lazy-evaluation approach ensures costly LLM inferences are executed only on demand, reducing resource usage.
 
@@ -78,7 +78,7 @@ Due to the missing documentation of the dataset itself, we will do EDA to unders
 distribution and meaning of each attribute of the dataset.
 \\
 
-We will deal with the data class imbalance by querying and sampling 100 projects for each archtectural smell.
+We will deal with the data class imbalance by querying and sampling 100 projects for each architectural smell.
 Since our project utilizes the TreeSitter library for parsing the source code, we map the smell annotations
 with the parsed code.
 \\
@@ -112,8 +112,8 @@ for each architectural smell:
 \begin{itemize}
     \item \textbf{Accuracy:} Percentage of correctly identified smells
     \item \textbf{F1:} Harmonic mean of Precision and recall
-    \item \textbf{Precision:} Ratio of True positive and False positive
-    \item \textbf{Recall:} Ratio of True positive and True negatives
+    \item \textbf{Precision:} Ratio of True positives to the sum of True positives and False positives
+    \item \textbf{Recall:} Ratio of True positives to the sum of True positives and False negatives
     \item \textbf{AUC - ROC:} Area Under the Receiver Operating Characteristic curve, representing the model's ability to discriminate between code smell classes across all classification thresholds.
 \end{itemize}
 
