@@ -20,9 +20,81 @@
 
 \section{Schedule}
 \label{section:schedule}
-<TIP: Show the schedule of your project.
-Use a Gantt chart. The items should agree with features
-you listed in Chapter 1. />
+% Schedule aligned to the core features introduced in Chapter 1.
+
+% Local palette for the chart.
+\definecolor{mygreen}{HTML}{2D6A4F}
+\definecolor{myteal}{HTML}{1B9AAA}
+\definecolor{myyellow}{HTML}{E9C46A}
+\definecolor{rowbg}{HTML}{F4F6F8}
+\definecolor{textcol}{HTML}{1F2933}
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily]
+
+\begin{ganttchart}[
+    % --- Dimensions ---
+    x unit=3.5cm,
+    y unit title=1.3cm,
+    y unit chart=1.6cm,
+    % --- Grids & Canvas ---
+    canvas/.style={fill=rowbg, draw=none},
+    vgrid={*1{white, line width=2pt}}, % Vertical gaps between months
+    hgrid={*1{white, line width=2mm}}, % Horizontal gaps between rows
+    % --- Titles ---
+    title height=1,
+    title label font=\bfseries\normalsize\color{white},
+    % --- Bars ---
+    bar height=0.5,
+    bar top shift=0.25,
+    bar/.style={draw=none},
+    bar green/.style={bar/.append style={fill=mygreen}},
+    bar teal/.style={bar/.append style={fill=myteal}},
+    bar yellow/.style={bar/.append style={fill=myyellow}},
+    % --- Labels ---
+    bar label font=\sffamily\normalsize\color{textcol},
+    bar label node/.append style={
+        align=left,
+        text width=3.2cm, 
+        fill=rowbg, 
+        minimum height=1.4cm,
+        inner sep=2mm
+    }
+]{1}{4}
+
+% --- Top Headers ---
+\gantttitle[title/.style={fill=myteal, draw=none}]{April 2026}{1}
+\gantttitle[title/.style={fill=mygreen, draw=none}]{January 2027}{1}
+\gantttitle[title/.style={fill=myteal, draw=none}]{February 2027}{1}
+\gantttitle[title/.style={fill=mygreen, draw=none}]{March 2027}{1} \\
+
+% --- Data Rows ---
+\ganttbar[bar green]{Code Parser}{1}{1} \\
+
+\ganttbar[bar teal, bar left shift=0.4, bar right shift=-0.4]{Graph\\Construction}{1}{2} \\
+
+\ganttbar[bar green]{Classification\\Model}{2}{2} \\
+
+\ganttbar[bar green]{XAI Pipeline}{3}{3} \\
+
+\ganttbar[bar yellow, bar left shift=0.5, bar right shift=-0.5]{Application\\Controller}{2}{4} \\
+
+\ganttbar[bar green]{Desktop\\Wrapper}{4}{4} \\
+
+\ganttbar[bar teal]{CI Wrapper}{3}{3}
+
+% --- Process Header ---
+\fill[mygreen] (-3.6, 0) rectangle (0, -1.3);
+\node[text=white, font=\normalsize\bfseries] at (-1.8, -0.65) {Process};
+
+\end{ganttchart}
+\end{tikzpicture}
+}
+\caption{Gantt chart for the development of ArchDiver}
+\end{figure}
+
+
 
 % \section{Progress Tracking Report}
 % \label{section:progress-tracking-report}
