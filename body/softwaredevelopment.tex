@@ -28,6 +28,8 @@
 \definecolor{myyellow}{HTML}{E9C46A}
 \definecolor{rowbg}{HTML}{F4F6F8}
 \definecolor{textcol}{HTML}{1F2933}
+\definecolor{navyblue}{HTML}{2254c5}
+
 \begin{figure}[htbp]
 \centering
 \resizebox{\textwidth}{!}{%
@@ -82,7 +84,9 @@
 
 \ganttbar[bar green]{Desktop\\Wrapper}{4}{4} \\
 
-\ganttbar[bar teal]{CI Wrapper}{3}{3}
+\ganttbar[bar teal]{CI Wrapper}{3}{3} \\
+
+\ganttbar[bar/.append style={fill=navyblue}]{MCP server}{3}{3}
 
 % --- Process Header ---
 \fill[mygreen] (-3.6, 0) rectangle (0, -1.3);
