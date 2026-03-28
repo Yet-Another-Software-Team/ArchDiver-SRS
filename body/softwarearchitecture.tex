@@ -70,10 +70,10 @@ The \textbf{PipelineControlUnit} orchestrates the parsing, graph construction, a
 \label{section:ai-data-design}
 
 \subsection{Data Sources and Collection}
-We utilize the Q-Scored dataset as our main data source for code repositories with code smells.
-The dataset consists of around 50,000 C# and Java projects with code smell annotations.
+We utilize the Q-Scored dataset as our main datasource for code repositories with code smells.
+The dataset consists of around 50,000 C\# and Java projects with code smell annotations.
 Our main focus for data preparation will be the reassembling of the database source files
-which are hosted on zenodo at: https://zenodo.org/records/4468361 .
+which are hosted on Zenodo at: https://zenodo.org/records/4468361 \cite{overleaf:learnlatex}.
 Due to the missing documentation of the dataset itself, we will do EDA to understand the
 distribution and meaning of each attribute of the dataset.
 \\
@@ -88,9 +88,9 @@ with the parsed code.
 \\
 
 For the classification model, we use a GraphSAGE model for architectural smell classification.
-From existing literature, it has been shown that inductive models outperform transductive models
-in code classification tasks {insert ref here}. While GATs can be modelled as an inductive algorithm,
-they are prone to overfitting on graph attributes causing poor performance on unseen data. Additionally,
+From existing literature, it has been shown that inductive models outperform transitive models
+in code classification tasks \cite{HanYu2024}. While GATs can be modeled as an inductive algorithm,
+they are prone to overfitting on graph attributes causing poor performance on unseen data. Additionally, 
 when comparing GraphSAGE to GCN and GAT models, GraphSAGE is significantly faster on graphs with large edges and
 nodes. It is up to 7 and 44 times faster than GAT and GCN respectively {insert ref here}.
 \\
