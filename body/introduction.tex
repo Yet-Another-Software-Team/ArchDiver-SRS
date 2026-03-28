@@ -4,9 +4,10 @@
 \section{Background}
 \label{section:background}
 
-In the current software development landscape, the industry has seen a surge in tools designed to accelerate the development lifecycle. However, a significant disparity remains between the tools available for low-level code implementation and those focused on the high-level detection and explanation of architectural integrity.
+In the current software development landscape, the industry has seen a surge in tools designed to accelerate the development lifecycle. However, a significant disparity remains between the tools available for low-level code implementation and those focused on the high-level detection and explanation of architectural integrity \cite{Lenhard2017}.
+\\
 
-Currently, the primary solutions for architectural analysis fall into two categories: Large Language Models (LLMs) and specialized static analysis platforms such as SonarQube. While these tools provide baseline insights, they present several limitations as effective detection systems for modern development teams:
+Currently, the primary solutions for architectural analysis fall into two categories: Large Language Models (LLMs) and specialized static analysis platforms such as SonarQube \cite{SonarQube}. While these tools provide baseline insights, they present several limitations as effective detection systems for modern development teams:
 
 \begin{itemize}
     \item \textbf{Operational Cost and Accessibility:} Enterprise-grade analysis tools often incur high licensing costs, making them inaccessible for smaller teams or individual researchers. Furthermore, cloud-dependent LLMs require continuous financial investment and a stable internet connection for consistent analysis.
@@ -35,7 +36,7 @@ The shift toward polyglot development and multi-language repositories has create
 
 \subsection{The Explainability Gap}
 \label{subsection:explainability-gap}
-Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation. Existing tools frequently flag structural issues without providing the necessary context or natural language justification. For a \textbf{software architect}, a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements. While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values. \textbf{\usevar{\srsNickName}} aims to bridge this gap by providing clear, natural language explanations supported by quantitative metrics.
+Even when advanced analysis is performed, a significant gap often exists between the complexity of the detection and the clarity of the resulting explanation. Existing tools frequently flag structural issues without providing the necessary context or natural language justification \cite{tantithamthavorn2020}. For a \textbf{software architect}, a simple ``warning'' is insufficient; without a metric-backed explanation of \textit{why} a particular design is problematic, it is difficult to reason about or prioritize improvements. While developers may understand the source code, they may lack the specialized knowledge to interpret raw metric values. \textbf{\usevar{\srsNickName}} aims to bridge this gap by providing clear, natural language explanations supported by quantitative metrics.
 
 \section{Solution Overview}
 \label{section:solution-overview}
