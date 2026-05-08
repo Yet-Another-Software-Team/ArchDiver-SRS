@@ -111,7 +111,15 @@ The core premise of \textbf{\usevar{\srsNickName}} language independence relies 
 \label{section:terminology}
 
 \begin{description}[style=multiline, leftmargin=3cm, font=\normalfont, itemsep=1em]
-    \item[\textbf{Architecture Smells}] Architectural issues that are not immediately obvious but can lead to long-term problems such as increased technical debt, reduced maintainability, or poor scalability.
+    \item[\textbf{Architecture Smells}] Architectural issues that are not immediately obvious but can lead to long-term problems such as increased technical debt, reduced maintainability, or poor scalability. Specific smells include:
+    \begin{itemize}
+        \item \textbf{Cyclic Dependency:} A structural anti-pattern where two or more components depend on each other directly or indirectly, forming a closed loop in the dependency graph. This hinders modularity and complicates testing and reuse.
+        \item \textbf{God Component:} A component that assumes an excessive amount of responsibility, often characterized by disproportionately high complexity and size metrics compared to the rest of the system.
+        \item \textbf{Unstable Dependency:} A dependency relationship where a stable component depends on a less stable component, potentially leading to a ripple effect of changes.
+        \item \textbf{Feature Concentration:} A smell where a single component or its immediate neighborhood realizes a disproportionately high number of system features.
+        \item \textbf{Scattered Functionality:} An architectural flaw where related functionality or a single feature is dispersed across multiple components.
+        \item \textbf{Dense Structure:} A characteristic of an architectural graph exhibiting a high degree of coupling with an excessive number of dependencies.
+    \end{itemize}
 
     \item[\textbf{Language Independence}] The ability of the system to analyze source code written in multiple programming languages without requiring language-specific adjustments.
 
