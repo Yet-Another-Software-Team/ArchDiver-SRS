@@ -134,6 +134,62 @@ The core premise of \textbf{\usevar{\srsNickName}} language independence relies 
     \item[\textbf{Tree-sitter}] A parser generator that builds a concrete syntax tree for a given source code file, serving as the first step in the system's code extraction pipeline.
 
     \item[\textbf{Abstract Syntax Tree (AST)}] A tree representation of the source code's syntactic structure, generated via Tree-sitter, which strips away formatting details to focus on structural logic.
+    The tree is unique for each programming language. For example, a simple Python function and a C\# method with their corresponding Tree-sitter ASTs:
+{\footnotesize
+\begin{verbatim}
+[Python Source]
+def add(a, b):
+    return a + b
+\end{verbatim}
+}
+
+{\footnotesize
+\begin{verbatim}
+[Python Tree-sitter AST]
+module [0, 0] - [3, 0]
+  function_definition [0, 0] - [1, 16]
+    name: identifier [0, 4] - [0, 7]
+    parameters: parameters [0, 7] - [0, 13]
+      identifier [0, 8] - [0, 9]
+      identifier [0, 11] - [0, 12]
+    body: block [1, 4] - [1, 16]
+      return_statement [1, 4] - [1, 16]
+        binary_operator [1, 11] - [1, 16]
+          left: identifier [1, 11] - [1, 12]
+          right: identifier [1, 15] - [1, 16]
+\end{verbatim}
+}
+{\footnotesize
+\begin{verbatim}
+[C# Source]
+int Add(int a, int b) {
+    return a + b;
+}
+\end{verbatim}
+}
+
+{\footnotesize
+\begin{verbatim}
+[C# Tree-sitter AST]
+compilation_unit [0, 0] - [3, 0]
+  global_statement [0, 0] - [2, 1]
+    local_function_statement [0, 0] - [2, 1]
+      type: predefined_type [0, 0] - [0, 3]
+      name: identifier [0, 4] - [0, 7]
+      parameters: parameter_list [0, 7] - [0, 21]
+        parameter [0, 8] - [0, 13]
+          type: predefined_type [0, 8] - [0, 11]
+          name: identifier [0, 12] - [0, 13]
+        parameter [0, 15] - [0, 20]
+          type: predefined_type [0, 15] - [0, 18]
+          name: identifier [0, 19] - [0, 20]
+      body: block [0, 22] - [2, 1]
+        return_statement [1, 4] - [1, 17]
+          binary_expression [1, 11] - [1, 16]
+            left: identifier [1, 11] - [1, 12]
+            right: identifier [1, 15] - [1, 16]
+\end{verbatim}
+}
 
     \item[\textbf{MCP Server}] The program that exposes specific capabilities to AI applications through standardized protocol interfaces.
 \end{description}
