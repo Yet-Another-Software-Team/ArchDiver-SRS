@@ -93,6 +93,7 @@ These smells are identifiable through the direct observation of internal logic a
     \item \textbf{Examples:} Long Method, Complex Conditional, Long Parameter List.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.1.2. Design Smells}
 \textbf{Definition:} Design smells manifest at a mid-level granularity, involving the structural integrity of \textit{types} (classes or interfaces) and their immediate relationships.
 This type of smell affect one to many classes depending on their type and may effect to the system at a component level.
@@ -103,6 +104,7 @@ Detection often requires analyzing how abstractions are modularized and how they
     \item \textbf{Examples:} Multifaceted Abstraction, Deep Hierarchy, Insufficient Modularization.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.1.3. Architectural Smells}
 \textbf{Definition:} Architectural smells represent the highest level of granularity, occurring at the level of \textit{components} (namespaces, assemblies, or packages).
 These smells impact the global topology of the system and the interaction patterns between major subsystems.
@@ -167,6 +169,7 @@ Our proposed system will support the detection of 7 main Architectural smells.
     \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.2 Cyclic Dependency}
 \textbf{Definition:} A structural anti-pattern where two or more components depend on each other directly or indirectly, forming a closed loop in the dependency graph.
 \begin{itemize}
@@ -175,6 +178,7 @@ Our proposed system will support the detection of 7 main Architectural smells.
     \item \textbf{Proposed Detection Mechanism:} Since this problem is a graph Cycle problem and there are proven methods to detect cycles. We will use a cycle detection algoritm on a parsed Component Directed graph.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.3 God Component}
 \textbf{Definition:} A component that assumes an excessive amount of responsibility, often characterized by disproportionately high complexity and size metrics compared to the rest of the system.
 \begin{itemize}
@@ -183,16 +187,18 @@ Our proposed system will support the detection of 7 main Architectural smells.
      Since God Components scale with the size of projects, GNNs can capture the relations of the component in regards to the project scope for more granular detection.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.4 Unstable Dependency}
 \textbf{Definition:} A dependency relationship where a stable component depends on a less stable component, potentially leading to a ripple effect of changes.
-\begin{equation}
-    I = \frac{C_{e}}{C_{a} + C_{e}}
-\end{equation}
+
+\[I = \frac{C_{e}}{C_{a} + C_{e}}\]
+
 \begin{itemize}
     \item \textbf{Traditional Detection Mechanism:} Detection consists of calculating Instabiltiy ($I$). Where $C_e$ represents Efferent coupling (Outgoing dependencies) and $C_a$ represents Affernt Coupling (Incoming dependencies).
     \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection to capture the relations between each component.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.5 Feature Concentration}
 \textbf{Definition:} A smell where a single component or its immediate neighborhood realizes a disproportionately high number of system features.
 \begin{itemize}
@@ -201,6 +207,7 @@ Our proposed system will support the detection of 7 main Architectural smells.
      Since Feature Concentration concerns the organization of projects, GNNs can capture the relations between components edges for better detection.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.6 Scattered Functionality}
 \textbf{Definition:} An architectural flaw where related functionality or a single feature is dispersed across multiple components.
 \begin{itemize}
@@ -208,6 +215,7 @@ Our proposed system will support the detection of 7 main Architectural smells.
     \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
 \end{itemize}
 
+\vspace{1em}
 \textbf{2.2.5.7  Dense Structure}
 \textbf{Definition:} A characteristic of an architectural graph exhibiting a high degree of coupling with an excessive number of dependencies.
 \begin{itemize}
