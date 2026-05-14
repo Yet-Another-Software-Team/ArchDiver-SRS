@@ -113,6 +113,7 @@ The core premise of \textbf{\usevar{\srsNickName}} language independence relies 
 \begin{description}[style=multiline, leftmargin=3cm, font=\normalfont, itemsep=1em]
     \item[\textbf{Architecture Smells}] Architectural issues that are not immediately obvious but can lead to long-term problems such as increased technical debt, reduced maintainability, or poor scalability. Specific smells include:
     \begin{itemize}
+        \item \textbf{Ambiguous Interface:} An architectural smell characterized by a component providing a single, overly generalized entry point for all external interactions.
         \item \textbf{Cyclic Dependency:} A structural anti-pattern where two or more components depend on each other directly or indirectly, forming a closed loop in the dependency graph. This hinders modularity and complicates testing and reuse.
         \item \textbf{God Component:} A component that assumes an excessive amount of responsibility, often characterized by disproportionately high complexity and size metrics compared to the rest of the system.
         \item \textbf{Unstable Dependency:} A dependency relationship where a stable component depends on a less stable component, potentially leading to a ripple effect of changes.

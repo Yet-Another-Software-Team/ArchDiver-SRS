@@ -74,6 +74,44 @@ which can be detected based on architectural metrics. The metrics are:
   \item Accessed Components
 \end{itemize}
 
+Software smells serve as qualitative indicators of technical debt and suboptimal patterns within source code. 
+These smells are taxonomically organized based on their granularity, scope, and impact, ranging from localized method-level issues to systemic structural flaws.
+While different smells may share a common symptoms such as poor cohesion or cyclic coupling—they are distinguished by the level of abstraction at which they reside and the specific metrics required for their detection.
+
+Based on existing literature, we formally group Code Smells into three categories:
+Architecture, Design, and Implementation smells.
+\\
+
+\textbf{Formal Definitions of Software Smells}
+\\
+
+\textbf{2.2.1.1. Implementation Smells}
+\textbf{Definition:} Implementation smells represent the finest level of granularity, characterized by suboptimal coding practices confined within the scope of a single \textit{method} or \textit{function}.
+These smells are identifiable through the direct observation of internal logic and control flow.
+\begin{itemize}
+    \item \textbf{Affected Level:} Method and Single Class scope.
+    \item \textbf{Examples:} Long Method, Complex Conditional, Long Parameter List.
+\end{itemize}
+
+\textbf{2.2.1.2. Design Smells}
+\textbf{Definition:} Design smells manifest at a mid-level granularity, involving the structural integrity of \textit{types} (classes or interfaces) and their immediate relationships.
+This type of smell affect one to many classes depending on their type and may effect to the system at a component level.
+Detection often requires analyzing how abstractions are modularized and how they interact with neighboring entities within a hierarchy.
+\begin{itemize}
+    \item \textbf{Affected Level:} Class and Component scope.
+    \item \textbf{Metric Example:} Detected via Lack of Cohesion among Methods (LCOM).
+    \item \textbf{Examples:} Multifaceted Abstraction, Deep Hierarchy, Insufficient Modularization.
+\end{itemize}
+
+\textbf{2.2.1.3. Architectural Smells}
+\textbf{Definition:} Architectural smells represent the highest level of granularity, occurring at the level of \textit{components} (namespaces, assemblies, or packages).
+These smells impact the global topology of the system and the interaction patterns between major subsystems.
+\begin{itemize}
+    \item \textbf{Affected Level:} Class, Component, and system level scope.
+    \item \textbf{Metric Example:} Detected via Lack of Component Cohesion (LCC).
+    \item \textbf{Examples:} God Component, Feature Concentration, Cyclic Dependency.
+\end{itemize}
+
 We design our model to detect architectural smells based on the definitions in this literature.
 Using the metrics provided by Sharma et al. \cite{Sharma2020}.
 We design a metric parser to extract metrics from TreeSitter's
@@ -116,3 +154,63 @@ While Deep learning models can preform classification tasks they are not easily 
 Due to the need for understanding architecture, we utilize GNNExplainer by Ying et al. \cite{Ying2019} to visualize and interpret
 the connection between architectural metrics and code relationships within the modeled graph
 \\
+
+\textbf{2.2.5 Proposed Detection Mechanisms}
+Our proposed system will support the detection of 7 main Architectural smells.
+\\
+
+\textbf{2.2.5.1 Ambiguous Interface}
+\textbf{Definition:} An architectural smell characterized by a component providing a single, overly generalized entry point for all external interactions.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection of this smell relies on finding a component containing only one public
+    or internal method for components with 5 or more classes. The 5 class breakpoint is a magic constant based use case feedback.
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
+\end{itemize}
+
+\textbf{2.2.5.2 Cyclic Dependency}
+\textbf{Definition:} A structural anti-pattern where two or more components depend on each other directly or indirectly, forming a closed loop in the dependency graph.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection consists of calculating a dependency list and converting each components dependencies into a Homogenous graph.
+    A Depth-First Search algorithm to detect cycles in the graph for each component.
+    \item \textbf{Proposed Detection Mechanism:} Since this problem is a graph Cycle problem and there are proven methods to detect cycles. We will use a cycle detection algoritm on a parsed Component Directed graph.
+\end{itemize}
+
+\textbf{2.2.5.3 God Component}
+\textbf{Definition:} A component that assumes an excessive amount of responsibility, often characterized by disproportionately high complexity and size metrics compared to the rest of the system.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection consists of measuing LOC or number of classes at arbitrary tresholds.
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
+     Since God Components scale with the size of projects, GNNs can capture the relations of the component in regards to the project scope for more granular detection.
+\end{itemize}
+
+\textbf{2.2.5.4 Unstable Dependency}
+\textbf{Definition:} A dependency relationship where a stable component depends on a less stable component, potentially leading to a ripple effect of changes.
+\begin{equation}
+    I = \frac{C_{e}}{C_{a} + C_{e}}
+\end{equation}
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection consists of calculating Instabiltiy ($I$). Where $C_e$ represents Efferent coupling (Outgoing dependencies) and $C_a$ represents Affernt Coupling (Incoming dependencies).
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection to capture the relations between each component.
+\end{itemize}
+
+\textbf{2.2.5.5 Feature Concentration}
+\textbf{Definition:} A smell where a single component or its immediate neighborhood realizes a disproportionately high number of system features.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection requires the use of LCOM and LCC metrics with a predefined threshold for smell detection.
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
+     Since Feature Concentration concerns the organization of projects, GNNs can capture the relations between components edges for better detection.
+\end{itemize}
+
+\textbf{2.2.5.6 Scattered Functionality}
+\textbf{Definition:} An architectural flaw where related functionality or a single feature is dispersed across multiple components.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection consists of finding 2 or more methods within a component that access more than 2 external components.
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection.
+\end{itemize}
+
+\textbf{2.2.5.7  Dense Structure}
+\textbf{Definition:} A characteristic of an architectural graph exhibiting a high degree of coupling with an excessive number of dependencies.
+\begin{itemize}
+    \item \textbf{Traditional Detection Mechanism:} Detection consists of creating a dependecy graph and measuring the average degree of edges exceeding a predetermined threshold.
+    \item \textbf{Proposed Detection Mechanism:} We utilize a Component-Class level DHG created from the parser with a trained GraphSAGE model for smell detection for learning the approprate degree in regards to project structure.
+\end{itemize}
